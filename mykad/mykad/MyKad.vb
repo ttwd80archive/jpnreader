@@ -1,7 +1,6 @@
 ﻿Public Class MyKad
 
     Public Sub init()
-        MsgBox(Nothing, , "Hello")
 
     End Sub
 
