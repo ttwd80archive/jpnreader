@@ -7,5 +7,12 @@
       <FileName>MyKad.vb</FileName>
     </TypeIdentifier>
   </Class>
+  <Module Name="mykad.jpn">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>jpn.vb</FileName>
+    </TypeIdentifier>
+  </Module>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "mykad", "mykad\mykad.vbproj", "{DF39641A-7DB1-4C6E-B012-2D65971DA79B}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "jpn", "mykad\jpn.vbproj", "{DF39641A-7DB1-4C6E-B012-2D65971DA79B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyKadRunner", "MyKadRunner\MyKadRunner.csproj", "{006AB1B3-2E24-4E88-95D4-7799A4C7DCB5}"
 EndProject

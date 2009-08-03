@@ -70,9 +70,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mykad\mykad.vbproj">
+    <ProjectReference Include="..\mykad\jpn.vbproj">
       <Project>{DF39641A-7DB1-4C6E-B012-2D65971DA79B}</Project>
-      <Name>mykad</Name>
+      <Name>jpn</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
