@@ -17,20 +17,8 @@ namespace MyKadRunner
 
         private void button1_Click(object sender, EventArgs e)
         {
-            mykad.MyKad myKad = new mykad.MyKad();
-            Boolean result = myKad.init();
-            if (result != true)
-            {
-                listBox1.Items.Add("Init BAD");
-                myKad.cleanup();
-                listBox1.Items.Add("Clean Up");
-                return;
-            }
-            listBox1.Items.Add("Init OK");
-            myKad.cleanup();
-            listBox1.Items.Add("Clean Up");
-
-
+            myKad.Reader reader = new myKad.Reader();
+            reader.init();
         }
 
         private void button2_Click(object sender, EventArgs e)
