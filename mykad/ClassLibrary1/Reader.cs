@@ -174,7 +174,7 @@ namespace myKad
             return 0;
         }
 
-        private byte[] createLengthRequestBuffer(short length)
+        private byte[] createLengthRequestBuffer(byte length)
         {
             byte[] CmdSetLength = {0xC8, 0x32, 0x00, 0x00, 0x05, 0x08, 0x00, 0x00};
             byte[] buffer = new byte[CmdSetLength.Length + 2];
@@ -182,19 +182,59 @@ namespace myKad
             {
                 buffer[i] = CmdSetLength[i];
             }
-            buffer[CmdSetLength.Length] = (byte)(length / 256);
-            buffer[CmdSetLength.Length + 1] = (byte)(length % 256);
+            buffer[CmdSetLength.Length] = 0;
+            buffer[CmdSetLength.Length + 1] = length;
             return buffer;
         }
-        public int readFile1()
+
+        private int sendRequestLength(byte length)
         {
-            byte[] request = createLengthRequestBuffer(SPLIT_LENGTH);
+            byte[] request = createLengthRequestBuffer(length);
             int errorCode;
-            byte[] recvBuffer = new byte[262];
-            uint cbRecvLength = 256;
+            byte[] recvBuffer = new byte[2];
+            uint cbRecvLength = 2;
             errorCode = SCardTransmit(hCard, ref ioSendPci, ref request[0], (uint)request.Length, ref ioRecvPci, ref recvBuffer[0], ref cbRecvLength);
 
             return errorCode;
+        }
+        private int selectFile(byte fileNumber, byte offset, byte length)
+        {
+            byte[] request = new byte[13];
+            int idx = 0;
+            int errorCode;
+            request[idx++] = 0xCC;
+            request[idx++] = 0x00;
+            request[idx++] = 0x00;
+            request[idx++] = 0x00;
+            request[idx++] = 0x08;
+            request[idx++] = 0x00;
+            request[idx++] = fileNumber;
+            request[idx++] = 0x00;
+            request[idx++] = 1;
+            request[idx++] = 0x00;
+            request[idx++] = offset;
+            request[idx++] = 0x00;
+            request[idx++] = length;
+            byte[] recvBuffer = new byte[2];
+            uint cbRecvLength = 2;
+            errorCode = SCardTransmit(hCard, ref ioSendPci, ref request[0], (uint)request.Length, ref ioRecvPci, ref recvBuffer[0], ref cbRecvLength);
+            return errorCode;
+
+        }
+        public int readFile1()
+        {
+            int errorCode;
+            errorCode = sendRequestLength(SPLIT_LENGTH);
+            if (errorCode != 0)
+            {
+                return errorCode;
+            }
+            errorCode = selectFile(1, 0, SPLIT_LENGTH);
+            if (errorCode != 0)
+            {
+                return errorCode;
+            }
+            return 0;
         }
 
         public void cleanUp()
