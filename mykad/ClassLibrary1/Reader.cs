@@ -174,15 +174,16 @@ namespace myKad
             return 0;
         }
 
-        private byte[] createLengthRequestBuffer(byte length)
+        private byte[] createLengthRequestBuffer(short length)
         {
             byte[] CmdSetLength = {0xC8, 0x32, 0x00, 0x00, 0x05, 0x08, 0x00, 0x00};
-            byte[] buffer = new byte[CmdSetLength.Length + 1];
+            byte[] buffer = new byte[CmdSetLength.Length + 2];
             for (int i = 0; i < CmdSetLength.Length; i++)
             {
                 buffer[i] = CmdSetLength[i];
             }
-            buffer[CmdSetLength.Length] = length;
+            buffer[CmdSetLength.Length] = (byte)(length / 256);
+            buffer[CmdSetLength.Length + 1] = (byte)(length % 256);
             return buffer;
         }
         public int readFile1()
@@ -198,9 +199,7 @@ namespace myKad
 
         public void cleanUp()
         {
-            int errorCode;
-            errorCode = SCardReleaseContext(hContext);
-            System.Console.WriteLine("SCardReleaseContext(): " + errorCode);
+            SCardReleaseContext(hContext);
         }
     }
 }
