@@ -18,7 +18,15 @@ namespace MyKadRunner
         private void button1_Click(object sender, EventArgs e)
         {
             myKad.Reader reader = new myKad.Reader();
-            reader.init();
+            int errorCode;
+            errorCode = reader.init();
+            if (errorCode == 0)
+            {
+                listBox1.Items.Add("Init OK");
+            }
+            errorCode = reader.readFile1();
+            listBox1.Items.Add("Read 1:" + errorCode);
+            reader.cleanUp();
         }
 
         private void button2_Click(object sender, EventArgs e)

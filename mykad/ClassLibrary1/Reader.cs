@@ -102,36 +102,51 @@ namespace myKad
         [System.Runtime.InteropServices.DllImportAttribute("winscard.dll", EntryPoint = "SCardTransmit")]
         public static extern int SCardTransmit(uint hCard, ref SCARD_IO_REQUEST pioSendPci, ref byte pbSendBuffer, uint cbSendLength, ref SCARD_IO_REQUEST pioRecvPci, ref byte pbRecvBuffer, ref uint pcbRecvLength);
 
+        private  byte[] CmdSelectAppJPN = { 0x00, 0xA4, 0x04, 0x00, 0x0A, 0x0A0, 0x00, 0x00, 0x00, 0x74, 0x4A, 0x50, 0x4E, 0x00, 0x10 };
+        private  byte[] CmdAppResponse = { 0x00, 0xC0, 0x00, 0x00, 0x05 };
+
 
         private uint hContext;
         private uint hCard;
         private uint dwActiveProtocol;
+        private SCARD_IO_REQUEST ioSendPci;
+        private SCARD_IO_REQUEST ioRecvPci;
+
+        private const byte SPLIT_LENGTH = 252;
+        private const int FILE_LENGTH_1 = 459;
+        private byte[] contentFile1 = new byte[FILE_LENGTH_1];
+
         public int init()
         {
             int errorCode;
             errorCode = SCardEstablishContext(SCARD_SCOPE_USER, IntPtr.Zero, IntPtr.Zero, ref hContext);
-            System.Console.WriteLine("SCardEstablishContext(): " + errorCode);
+            if (errorCode != 0)
+            {
+                return errorCode;
+            }
 
             StringBuilder sb = new StringBuilder();
             uint cchReaders = 256;
             errorCode = SCardListReadersW(hContext, null, sb, ref cchReaders);
+            if (errorCode != 0)
+            {
+                return errorCode;
+            }
             String readerName = sb.ToString();
-            System.Console.WriteLine("SCardListReadersW(): " + errorCode);
-            System.Console.WriteLine("[" + readerName + "]");
 
             errorCode = SCardConnectW(hContext, readerName, SCARD_SHARE_SHARED, SCARD_PROTOCOL_T0, ref hCard, ref dwActiveProtocol);
-            System.Console.WriteLine("SCardConnectW(): " + errorCode);
+            if (errorCode != 0)
+            {
+                return errorCode;
+            }
 
-            SCARD_IO_REQUEST ioSendPci = new SCARD_IO_REQUEST();
             ioSendPci.dwProtocol = dwActiveProtocol;
             ioSendPci.cbPciLength = 8;
 
-            SCARD_IO_REQUEST ioRecvPci = new SCARD_IO_REQUEST();
+
             ioRecvPci.dwProtocol = dwActiveProtocol;
             ioRecvPci.cbPciLength = 8;
 
-            byte[] CmdSelectAppJPN = { 0x00, 0xA4, 0x04, 0x00, 0x0A, 0x0A0, 0x00, 0x00, 0x00, 0x74, 0x4A, 0x50, 0x4E, 0x00, 0x10 };
-            byte[] CmdAppResponse = { 0x00, 0xC0, 0x00, 0x00, 0x05 };
             byte[] sendBuffer;
             byte[] recvBuffer = new byte[262];
             uint cbRecvLength;
@@ -139,21 +154,53 @@ namespace myKad
             sendBuffer = CmdSelectAppJPN;
             cbRecvLength = 2;
             errorCode = SCardTransmit(hCard, ref ioSendPci, ref sendBuffer[0], (uint)sendBuffer.Length, ref ioRecvPci, ref recvBuffer[0], ref cbRecvLength);
-            System.Console.WriteLine("SCardTransmit(): " + errorCode);
+            if (errorCode != 0)
+            {
+                return errorCode;
+            }
             if (!(recvBuffer[0] == 0x61 && recvBuffer[1] == 0x05))
             {
-                System.Console.WriteLine("Not MyKad");
-                SCardReleaseContext(hContext);
+                return -1;
             }
 
             sendBuffer = CmdAppResponse;
             cbRecvLength = 256;
             errorCode = SCardTransmit(hCard, ref ioSendPci, ref sendBuffer[0], (uint)sendBuffer.Length, ref ioRecvPci, ref recvBuffer[0], ref cbRecvLength);
-            System.Console.WriteLine("SCardTransmit(): " + errorCode);
+            if (errorCode != 0)
+            {
+                return errorCode;
+            }
 
+            return 0;
+        }
+
+        private byte[] createLengthRequestBuffer(byte length)
+        {
+            byte[] CmdSetLength = {0xC8, 0x32, 0x00, 0x00, 0x05, 0x08, 0x00, 0x00};
+            byte[] buffer = new byte[CmdSetLength.Length + 1];
+            for (int i = 0; i < CmdSetLength.Length; i++)
+            {
+                buffer[i] = CmdSetLength[i];
+            }
+            buffer[CmdSetLength.Length] = length;
+            return buffer;
+        }
+        public int readFile1()
+        {
+            byte[] request = createLengthRequestBuffer(SPLIT_LENGTH);
+            int errorCode;
+            byte[] recvBuffer = new byte[262];
+            uint cbRecvLength = 256;
+            errorCode = SCardTransmit(hCard, ref ioSendPci, ref request[0], (uint)request.Length, ref ioRecvPci, ref recvBuffer[0], ref cbRecvLength);
+
+            return errorCode;
+        }
+
+        public void cleanUp()
+        {
+            int errorCode;
             errorCode = SCardReleaseContext(hContext);
             System.Console.WriteLine("SCardReleaseContext(): " + errorCode);
-            return 0;
         }
     }
 }
