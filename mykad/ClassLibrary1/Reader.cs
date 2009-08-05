@@ -221,6 +221,19 @@ namespace myKad
             return errorCode;
 
         }
+        private int getData(ref byte[] recvBuffer, ref uint cbRecvLength)
+        {
+            byte[] request = new byte[5];
+            int idx = 0;
+            request[idx++] = 0xCC;
+            request[idx++] = 0x06;
+            request[idx++] = 0x00;
+            request[idx++] = 0x00;
+            request[idx++] = (byte)cbRecvLength;
+            int errorCode;
+            errorCode = SCardTransmit(hCard, ref ioSendPci, ref request[0], (uint)request.Length, ref ioRecvPci, ref recvBuffer[0], ref cbRecvLength);
+            return errorCode;
+        }
         public int readFile1()
         {
             int errorCode;
@@ -230,6 +243,15 @@ namespace myKad
                 return errorCode;
             }
             errorCode = selectFile(1, 0, SPLIT_LENGTH);
+            if (errorCode != 0)
+            {
+                return errorCode;
+            }
+            uint cbRecvLength;
+            byte[] recvBuffer;
+            cbRecvLength = 256;
+            recvBuffer = new byte[262];
+            errorCode = getData(ref recvBuffer, ref cbRecvLength);
             if (errorCode != 0)
             {
                 return errorCode;
