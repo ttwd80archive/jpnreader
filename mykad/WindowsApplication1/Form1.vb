@@ -149,19 +149,53 @@ Public Class Form1
 
     End Sub
 
-    Public Sub readFile1()
+    Public Function readSegment(ByVal fileNumber As Integer, ByVal offset As Integer, ByVal length As Integer)
         Dim buffer(262) As Byte
         Dim responseLength As UInteger
         Dim result As UInteger
 
-        responseLength = 256
+        responseLength = 2
+        result = issueSetLengthRequest(length, buffer, responseLength)
+        ListBox1.Items.Add("issueSetLengthRequest() App CmdSetLength: " + CStr(result) + ": Length " + CStr(responseLength))
+
+        responseLength = 2
+        result = issueSelectFileRequest(fileNumber, offset, length, buffer, responseLength)
+        ListBox1.Items.Add("issueSelectFileRequest: " + CStr(result) + ": Length " + CStr(responseLength))
+
+        responseLength = 254
+        result = issueGetDataRequest(length, buffer, responseLength)
+
+    End Function
+
+    Public Sub readFile1()
+        Dim content(459) As Byte
+        Dim buffer(262) As Byte
+        Dim responseLength As UInteger
+        Dim result As UInteger
+
+        responseLength = 2
         result = issueSetLengthRequest(252, buffer, responseLength)
         ListBox1.Items.Add("issueSetLengthRequest() App CmdSetLength: " + CStr(result) + ": Length " + CStr(responseLength))
 
-        responseLength = 256
+        responseLength = 2
         result = issueSelectFileRequest(1, 0, 252, buffer, responseLength)
-        ListBox1.Items.Add("SCardTransmit() issueSelectFileRequest: " + CStr(result) + ": Length " + CStr(responseLength))
+        ListBox1.Items.Add("issueSelectFileRequest: " + CStr(result) + ": Length " + CStr(responseLength))
+
+        responseLength = 254
+        result = issueGetDataRequest(252, buffer, responseLength)
+
     End Sub
+    Private Function issueGetDataRequest(ByVal length As Byte, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
+        Dim result As UInteger = 0
+        Dim cmd(5) As Byte
+        cmd(0) = 204
+        cmd(1) = 6
+        cmd(2) = 0
+        cmd(3) = 0
+        cmd(4) = length
+        result = SCardTransmit(hCard, ioSendPci, cmd(0), 5, ioRecvPci, receiveBuffer(0), bufferLength)
+        Return result
+    End Function
 
     Private Function issueSetLengthRequest(ByVal length As UInteger, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
         Dim result As UInteger = 0
