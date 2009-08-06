@@ -99,6 +99,7 @@ Public Class Form1
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         ListBox1.Items.Clear()
+        PictureBox1.Image = Nothing
     End Sub
 
     Private hCard As UInteger
@@ -144,6 +145,9 @@ Public Class Form1
         ListBox1.Items.Add("SCardTransmit() App Response: " + CStr(result) + ": Length " + CStr(receiveBufferLength))
 
         readFile1()
+        Dim pictureContent() As Byte = readFile2()
+        Dim icPicture As Image = Drawing.Image.FromStream(New IO.MemoryStream(pictureContent))
+        PictureBox1.Image = icPicture
 
         SCardReleaseContext(hContext)
 
@@ -186,6 +190,31 @@ Public Class Form1
         Return content
     End Function
 
+    Public Function readFile2() As Byte()
+        Const LIMIT As Integer = 4011
+        Const IMAGE_OFFSET As Integer = 3
+        Const IMAGE_LENGTH As Integer = 4000
+        Const LENGTH As Integer = 252
+        Dim content(LIMIT - 1) As Byte
+        Dim contentLength As Integer = 0
+        While contentLength < LIMIT
+            Dim blockSize As Integer
+            Dim unread As Integer = LIMIT - contentLength
+            If unread > LENGTH Then
+                blockSize = LENGTH
+            Else
+                blockSize = unread
+            End If
+            Dim blockContent As Byte() = readSegment(2, contentLength, blockSize)
+            Array.Copy(blockContent, 0, content, contentLength, blockSize)
+            contentLength = contentLength + blockContent.Length()
+        End While
+        Dim imageContent(IMAGE_LENGTH - 1) As Byte
+        Array.Copy(content, IMAGE_OFFSET, imageContent, 0, IMAGE_LENGTH)
+        Return imageContent
+    End Function
+
+
     Private Function issueGetDataRequest(ByVal length As Byte, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
         Dim result As UInteger = 0
         Dim cmd(5) As Byte
@@ -209,8 +238,8 @@ Public Class Form1
         CmdSetLength(5) = 8
         CmdSetLength(6) = 0
         CmdSetLength(7) = 0
-        CmdSetLength(8) = CByte(length)
-        CmdSetLength(9) = 0
+        CmdSetLength(8) = CByte(length Mod 256)
+        CmdSetLength(9) = CByte(length \ 256)
         result = SCardTransmit(hCard, ioSendPci, CmdSetLength(0), 10, ioRecvPci, receiveBuffer(0), bufferLength)
         Return result
     End Function
