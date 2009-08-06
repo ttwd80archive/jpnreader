@@ -114,6 +114,11 @@ Public Class Form1
         Dim szReader As String
         Dim protocol As UInteger
 
+        Dim stopwatch As Stopwatch = New Stopwatch()
+        stopwatch.Start()
+        ListBox1.Items.Add(DateTime.Now.ToLongTimeString())
+        ListBox1.Refresh()
+
         sb = New System.Text.StringBuilder()
         result = SCardEstablishContext(SCARD_SCOPE_USER, IntPtr.Zero, IntPtr.Zero, hContext)
         ListBox1.Items.Add("SCardEstablishContext(): " + CStr(result))
@@ -144,12 +149,19 @@ Public Class Form1
         result = SCardTransmit(hCard, ioSendPci, CmdAppResponse(0), CUInt(CmdAppResponse.Length), ioRecvPci, receiveBuffer(0), receiveBufferLength)
         ListBox1.Items.Add("SCardTransmit() App Response: " + CStr(result) + ": Length " + CStr(receiveBufferLength))
 
-        readFile1()
+        Dim fileContent1() As Byte = readFile1()
+        ListBox1.Items.Add("")
+        ListBox1.Items.Add("Name : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H3, &H96).Trim() + "]")
+        ListBox1.Items.Add("ID : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H111, &HD).Trim() + "]")
+
         Dim pictureContent() As Byte = readFile2()
         Dim icPicture As Image = Drawing.Image.FromStream(New IO.MemoryStream(pictureContent))
         PictureBox1.Image = icPicture
-
+        stopwatch.Stop()
         SCardReleaseContext(hContext)
+        ListBox1.Items.Add(DateTime.Now.ToLongTimeString())
+        ListBox1.Items.Add("ms elapsed : " + CStr(stopwatch.Elapsed.ToString()))
+        ListBox1.Refresh()
 
     End Sub
 
