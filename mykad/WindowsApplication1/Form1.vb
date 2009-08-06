@@ -153,10 +153,20 @@ Public Class Form1
         ListBox1.Items.Add("")
         ListBox1.Items.Add("Name : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H3, &H96).Trim() + "]")
         ListBox1.Items.Add("ID : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H111, &HD).Trim() + "]")
+        ListBox1.Items.Add("Gender : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H11E, 1).Trim() + "]")
+        Dim birthdateByte(4 - 1) As Byte
+        Array.Copy(fileContent1, &H127, birthdateByte, 0, 4)
+        '+Hex(birthdateByte(1) +""+Hex(birthdateByte(2) +""+Hex(birthdateByte(3)  + 
+        ListBox1.Items.Add("Birth Date : [" + bcdDateToString(birthdateByte) + "]")
+        ListBox1.Items.Add("BirthPlace : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H12B, &H19).Trim() + "]")
+        Dim dateIssuedByte(4 - 1) As Byte
+        Array.Copy(fileContent1, &H127, dateIssuedByte, 0, 4)
+        ListBox1.Items.Add("Birth Date : [" + bcdDateToString(dateIssuedByte) + "]")
+        ListBox1.Items.Add("Citizenship : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H148, &H12).Trim() + "]")
+        ListBox1.Items.Add("")
 
-        Dim pictureContent() As Byte = readFile2()
-        Dim icPicture As Image = Drawing.Image.FromStream(New IO.MemoryStream(pictureContent))
-        PictureBox1.Image = icPicture
+        'loadImage()
+
         stopwatch.Stop()
         SCardReleaseContext(hContext)
         ListBox1.Items.Add(DateTime.Now.ToLongTimeString())
@@ -164,7 +174,16 @@ Public Class Form1
         ListBox1.Refresh()
 
     End Sub
-
+    Private Function bcdDateToString(ByVal bcdDate As Byte()) As String
+        Dim result As String
+        result = Hex(bcdDate(3)) + "/" + Hex(bcdDate(2)) + "/" + Hex(bcdDate(0)) + Hex(bcdDate(1))
+        Return result
+    End Function
+    Private Sub loadImage()
+        Dim pictureContent() As Byte = readFile2()
+        Dim icPicture As Image = Drawing.Image.FromStream(New IO.MemoryStream(pictureContent))
+        PictureBox1.Image = icPicture
+    End Sub
     Public Function readSegment(ByVal fileNumber As Integer, ByVal offset As Integer, ByVal length As Integer) As Byte()
         Dim result As UInteger
         Dim bufferLength As Integer
