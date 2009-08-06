@@ -105,6 +105,7 @@ Public Class Form1
     Private hCard As UInteger
     Private ioSendPci As SCARD_IO_REQUEST
     Private ioRecvPci As SCARD_IO_REQUEST
+    Private imageLoadingProgress As Integer
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Dim hContext As UInteger
@@ -150,30 +151,86 @@ Public Class Form1
         ListBox1.Items.Add("SCardTransmit() App Response: " + CStr(result) + ": Length " + CStr(receiveBufferLength))
 
         Dim fileContent1() As Byte = readFile1()
-        ListBox1.Items.Add("")
-        ListBox1.Items.Add("Name : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H3, &H96).Trim() + "]")
-        ListBox1.Items.Add("ID : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H111, &HD).Trim() + "]")
-        ListBox1.Items.Add("Gender : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H11E, 1).Trim() + "]")
+
         Dim birthdateByte(4 - 1) As Byte
         Array.Copy(fileContent1, &H127, birthdateByte, 0, 4)
-        '+Hex(birthdateByte(1) +""+Hex(birthdateByte(2) +""+Hex(birthdateByte(3)  + 
-        ListBox1.Items.Add("Birth Date : [" + bcdDateToString(birthdateByte) + "]")
-        ListBox1.Items.Add("BirthPlace : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H12B, &H19).Trim() + "]")
+
         Dim dateIssuedByte(4 - 1) As Byte
         Array.Copy(fileContent1, &H127, dateIssuedByte, 0, 4)
-        ListBox1.Items.Add("Birth Date : [" + bcdDateToString(dateIssuedByte) + "]")
-        ListBox1.Items.Add("Citizenship : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H148, &H12).Trim() + "]")
-        ListBox1.Items.Add("")
 
-        'loadImage()
+        Dim name As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H3, &H96).Trim()
+        Dim id As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H111, &HD).Trim()
+        Dim gender As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H11E, 1).Trim()
+        Dim birthdate As String = bcdDateToString(birthdateByte)
+        Dim birthplace As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H12B, &H19).Trim()
+        Dim issuedDate As String = bcdDateToString(dateIssuedByte)
+        Dim citizenship As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H148, &H12).Trim()
+        Dim race As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H15A, &H19).Trim()
+        Dim religion As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H173, &HB).Trim()
+        ListBox1.Items.Add("")
+        ListBox1.Items.Add("Name : [" + Name + "]")
+        ListBox1.Items.Add("ID : [" + id + "]")
+        ListBox1.Items.Add("Gender : [" + gender + "]")
+        '+Hex(birthdateByte(1) +""+Hex(birthdateByte(2) +""+Hex(birthdateByte(3)  + 
+        ListBox1.Items.Add("Birth Date : [" + birthdate + "]")
+        ListBox1.Items.Add("BirthPlace : [" + birthplace + "]")
+        ListBox1.Items.Add("Issued Date : [" + issuedDate + "]")
+        ListBox1.Items.Add("Citizenship : [" + citizenship + "]")
+        ListBox1.Items.Add("Race : [" + race + "]")
+        ListBox1.Items.Add("Religion : [" + religion + "]")
+        ListBox1.Items.Add("East Malaysian : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H17E, &H1).Trim() + "]")
+        ListBox1.Items.Add("RJ  ? : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H17F, &H2).Trim() + "]")
+        ListBox1.Items.Add("KT ? : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H181, &H2).Trim() + "]")
+        ListBox1.Items.Add("Category ? : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H18E, &H1).Trim() + "]")
+        ListBox1.Items.Add("Card version? : [" + CStr(CInt(fileContent1(&H18F))).Trim() + "]")
+        ListBox1.Refresh()
+        '
+
+        ListBox1.Items.Add("Address")
+        Dim fileContent4() As Byte = readFile4()
+
+        Dim postCodeByte(3 - 1) As Byte
+        Array.Copy(fileContent4, &H5D, postCodeByte, 0, 3)
+        Dim address1 As String = System.Text.Encoding.ASCII.GetString(fileContent4, &H3, &H1E).Trim()
+        Dim address2 As String = System.Text.Encoding.ASCII.GetString(fileContent4, &H21, &H1E).Trim()
+        Dim address3 As String = System.Text.Encoding.ASCII.GetString(fileContent4, &H3F, &H1E).Trim()
+        Dim postcode As String = bcdNumberToString(postCodeByte)
+        Dim city As String = System.Text.Encoding.ASCII.GetString(fileContent4, &H60, &H19).Trim()
+        Dim state As String = System.Text.Encoding.ASCII.GetString(fileContent4, &H79, &H1E).Trim()
+
+        ListBox1.Items.Add("[" + address1 + "]")
+        ListBox1.Items.Add("[" + address2 + "]")
+        ListBox1.Items.Add("[" + address3 + "]")
+        ListBox1.Items.Add("Postcode : [" + postcode + "]")
+        ListBox1.Items.Add("City : [" + city + "]")
+        ListBox1.Items.Add("State : [" + state + "]")
+
+        If CheckBox1.Checked Then
+            Timer1.Start()
+            ToolStripStatusLabel1.Text = "Reading Image..."
+            loadImage()
+            ToolStripStatusLabel1.Text = ""
+            Me.Refresh()
+        End If
 
         stopwatch.Stop()
         SCardReleaseContext(hContext)
         ListBox1.Items.Add(DateTime.Now.ToLongTimeString())
         ListBox1.Items.Add("ms elapsed : " + CStr(stopwatch.Elapsed.ToString()))
         ListBox1.Refresh()
+        If Timer1.Enabled Then
+            Timer1.Stop()
+        End If
 
     End Sub
+    Private Function bcdNumberToString(ByVal bcd As Byte()) As String
+        Dim result As String = ""
+        Dim n As Integer = bcd.Length
+        For i As Integer = 0 To n - 1
+            result = result + Hex(bcd(i))
+        Next
+        Return result
+    End Function
     Private Function bcdDateToString(ByVal bcdDate As Byte()) As String
         Dim result As String
         result = Hex(bcdDate(3)) + "/" + Hex(bcdDate(2)) + "/" + Hex(bcdDate(0)) + Hex(bcdDate(1))
@@ -218,6 +275,11 @@ Public Class Form1
         Dim content(LENGTH_1 + LENGTH_2 - 1) As Byte
         Array.Copy(content1, 0, content, 0, LENGTH_1)
         Array.Copy(content2, 0, content, LENGTH_1, LENGTH_2)
+        Return content
+    End Function
+    Public Function readFile4() As Byte()
+        Const LENGTH As Integer = 171
+        Dim content As Byte() = readSegment(4, 0, LENGTH)
         Return content
     End Function
 
@@ -309,6 +371,5 @@ Public Class Form1
         result = SCardTransmit(hCard, ioSendPci, cmd(0), cmd.Length, ioRecvPci, receiveBuffer(0), bufferLength)
         Return result
     End Function
-
 
 End Class
