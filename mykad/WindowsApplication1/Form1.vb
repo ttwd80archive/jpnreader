@@ -176,15 +176,13 @@ Public Class Form1
     End Function
 
     Public Function readFile1() As Byte()
-        Dim content1 As Byte() = readSegment(1, 0, 252)
-        Dim content2 As Byte() = readSegment(1, 252, 207)
-        Dim content(459 - 1) As Byte
-        For i As Integer = 0 To (252 - 1)
-            content(i) = content1(i)
-        Next
-        For i As Integer = 0 To (207 - 1)
-            content(i + 252) = content2(i)
-        Next
+        Const LENGTH_1 As Integer = 252
+        Const LENGTH_2 As Integer = 207
+        Dim content1 As Byte() = readSegment(1, 0, LENGTH_1)
+        Dim content2 As Byte() = readSegment(1, LENGTH_1, LENGTH_2)
+        Dim content(LENGTH_1 + LENGTH_2 - 1) As Byte
+        Array.Copy(content1, 0, content, 0, LENGTH_1)
+        Array.Copy(content2, 0, content, LENGTH_1, LENGTH_2)
         Return content
     End Function
 
