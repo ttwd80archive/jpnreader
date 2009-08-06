@@ -9,6 +9,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WindowsApplication1", "Wind
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "consoleRunner", "consoleRunner\consoleRunner.vcproj", "{94C63522-5294-4D76-BFC3-5D041D554E58}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scardsniffer", "scardsniffer\scardsniffer.vcproj", "{8F795507-034E-4C87-A13F-39BBB23C2A13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,16 @@ Global
 		{94C63522-5294-4D76-BFC3-5D041D554E58}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{94C63522-5294-4D76-BFC3-5D041D554E58}.Release|Win32.ActiveCfg = Release|Win32
 		{94C63522-5294-4D76-BFC3-5D041D554E58}.Release|Win32.Build.0 = Release|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Debug|Win32.Build.0 = Debug|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Release|Any CPU.ActiveCfg = Release|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Release|Win32.ActiveCfg = Release|Win32
+		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

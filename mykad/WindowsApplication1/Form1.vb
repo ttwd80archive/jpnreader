@@ -149,42 +149,45 @@ Public Class Form1
 
     End Sub
 
-    Public Function readSegment(ByVal fileNumber As Integer, ByVal offset As Integer, ByVal length As Integer)
-        Dim buffer(262) As Byte
-        Dim responseLength As UInteger
+    Public Function readSegment(ByVal fileNumber As Integer, ByVal offset As Integer, ByVal length As Integer) As Byte()
         Dim result As UInteger
+        Dim bufferLength As Integer
+        Dim buffer(256) As Byte
+        bufferLength = 256
+        result = issueSetLengthRequest(length, buffer, bufferLength)
+        If (result <> 0) Then
+            Return Nothing
+        End If
 
-        responseLength = 2
-        result = issueSetLengthRequest(length, buffer, responseLength)
-        ListBox1.Items.Add("issueSetLengthRequest() App CmdSetLength: " + CStr(result) + ": Length " + CStr(responseLength))
+        bufferLength = 2
+        result = issueSelectFileRequest(fileNumber, offset, length, buffer, bufferLength)
+        If (result <> 0) Then
+            Return Nothing
+        End If
 
-        responseLength = 2
-        result = issueSelectFileRequest(fileNumber, offset, length, buffer, responseLength)
-        ListBox1.Items.Add("issueSelectFileRequest: " + CStr(result) + ": Length " + CStr(responseLength))
+        bufferLength = 254
+        result = issueGetDataRequest(length, buffer, bufferLength)
 
-        responseLength = 254
-        result = issueGetDataRequest(length, buffer, responseLength)
-
+        Dim content(bufferLength - 2 - 1) As Byte
+        For i As Integer = 0 To (bufferLength - 2 - 1)
+            content(i) = buffer(i)
+        Next
+        Return content
     End Function
 
-    Public Sub readFile1()
-        Dim content(459) As Byte
-        Dim buffer(262) As Byte
-        Dim responseLength As UInteger
-        Dim result As UInteger
+    Public Function readFile1() As Byte()
+        Dim content1 As Byte() = readSegment(1, 0, 252)
+        Dim content2 As Byte() = readSegment(1, 252, 207)
+        Dim content(459 - 1) As Byte
+        For i As Integer = 0 To (252 - 1)
+            content(i) = content1(i)
+        Next
+        For i As Integer = 0 To (207 - 1)
+            content(i + 252) = content2(i)
+        Next
+        Return content
+    End Function
 
-        responseLength = 2
-        result = issueSetLengthRequest(252, buffer, responseLength)
-        ListBox1.Items.Add("issueSetLengthRequest() App CmdSetLength: " + CStr(result) + ": Length " + CStr(responseLength))
-
-        responseLength = 2
-        result = issueSelectFileRequest(1, 0, 252, buffer, responseLength)
-        ListBox1.Items.Add("issueSelectFileRequest: " + CStr(result) + ": Length " + CStr(responseLength))
-
-        responseLength = 254
-        result = issueGetDataRequest(252, buffer, responseLength)
-
-    End Sub
     Private Function issueGetDataRequest(ByVal length As Byte, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
         Dim result As UInteger = 0
         Dim cmd(5) As Byte
@@ -199,7 +202,7 @@ Public Class Form1
 
     Private Function issueSetLengthRequest(ByVal length As UInteger, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
         Dim result As UInteger = 0
-        Dim CmdSetLength(10) As Byte
+        Dim CmdSetLength(9) As Byte
         CmdSetLength(0) = 200
         CmdSetLength(1) = 50
         CmdSetLength(2) = 0
@@ -215,22 +218,37 @@ Public Class Form1
     End Function
 
     Private Function issueSelectFileRequest(ByVal fileNumber As Byte, ByVal offset As Integer, ByVal length As Byte, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
-        Dim CmdSelectFile(13) As Byte
+        Dim cmd(12) As Byte
         Dim result As Integer
-        CmdSelectFile(0) = 204
-        CmdSelectFile(1) = 0
-        CmdSelectFile(2) = 0
-        CmdSelectFile(3) = 0
-        CmdSelectFile(4) = 8
-        CmdSelectFile(5) = fileNumber Mod 256
-        CmdSelectFile(6) = fileNumber / 256
-        CmdSelectFile(7) = 1
-        CmdSelectFile(8) = 0
-        CmdSelectFile(9) = offset Mod 256
-        CmdSelectFile(10) = offset / 256
-        CmdSelectFile(11) = length
-        CmdSelectFile(12) = 0
-        result = SCardTransmit(hCard, ioSendPci, CmdSelectFile(0), 13, ioRecvPci, receiveBuffer(0), bufferLength)
+        Dim top As Integer
+        Dim bottom As Integer
+        Dim d As Integer
+
+
+        cmd(0) = 204
+        cmd(1) = 0
+        cmd(2) = 0
+        cmd(3) = 0
+        cmd(4) = 8
+
+        top = fileNumber
+        bottom = 256
+
+        d = top \ bottom
+        cmd(5) = top Mod bottom
+        cmd(6) = d
+        cmd(7) = 1
+        cmd(8) = 0
+
+        top = offset
+        bottom = 256
+        d = top \ bottom
+        cmd(9) = top Mod bottom
+        cmd(10) = d
+
+        cmd(11) = length
+        cmd(12) = 0
+        result = SCardTransmit(hCard, ioSendPci, cmd(0), cmd.Length, ioRecvPci, receiveBuffer(0), bufferLength)
         Return result
     End Function
 
