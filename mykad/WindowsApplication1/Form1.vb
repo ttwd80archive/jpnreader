@@ -205,23 +205,48 @@ Public Class Form1
         ListBox1.Items.Add("City : [" + city + "]")
         ListBox1.Items.Add("State : [" + state + "]")
 
+        Dim pictureContent() As Byte = Nothing
         If CheckBox1.Checked Then
-            Timer1.Start()
             ToolStripStatusLabel1.Text = "Reading Image..."
-            loadImage()
+            pictureContent = loadImage()
             ToolStripStatusLabel1.Text = ""
-            Me.Refresh()
         End If
 
         stopwatch.Stop()
         SCardReleaseContext(hContext)
+        insertIntoDb(id, name, citizenship, race, religion, pictureContent)
         ListBox1.Items.Add(DateTime.Now.ToLongTimeString())
         ListBox1.Items.Add("ms elapsed : " + CStr(stopwatch.Elapsed.ToString()))
         ListBox1.Refresh()
-        If Timer1.Enabled Then
-            Timer1.Stop()
-        End If
 
+    End Sub
+    Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal pictureContent As Byte())
+        Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
+
+        Dim sql As String = "insert into student (id, name, citizenship, race, religion) values (?, ?, ?, ?, ?)"
+        Dim sqlImage As String = "insert into student_image (id, content) values (?, ?)"
+        Dim c As Odbc.OdbcConnection = New Odbc.OdbcConnection(connectionString)
+
+        Dim cmd As Odbc.OdbcCommand = New Odbc.OdbcCommand(sql, c)
+        cmd.Parameters.Add(New Odbc.OdbcParameter("id", Odbc.OdbcType.NChar, 12)).Value = id
+        cmd.Parameters.Add(New Odbc.OdbcParameter("name", Odbc.OdbcType.NVarChar)).Value = name
+        cmd.Parameters.Add(New Odbc.OdbcParameter("citizenship", Odbc.OdbcType.NVarChar)).Value = citizenship
+        cmd.Parameters.Add(New Odbc.OdbcParameter("race", Odbc.OdbcType.NVarChar)).Value = race
+        cmd.Parameters.Add(New Odbc.OdbcParameter("religion", Odbc.OdbcType.NVarChar)).Value = religion
+
+        Dim cmdImage As Odbc.OdbcCommand = New Odbc.OdbcCommand(sqlImage, c)
+        cmdImage.Parameters.Add(New Odbc.OdbcParameter("id", Odbc.OdbcType.NChar, 12)).Value = id
+        cmdImage.Parameters.Add(New Odbc.OdbcParameter("content", Odbc.OdbcType.VarBinary, 4000)).Value = pictureContent
+
+        Try
+            c.Open()
+            cmd.ExecuteNonQuery()
+            cmdImage.ExecuteNonQuery()
+        Catch
+            MsgBox("Duplicate")
+        Finally
+            c.Close()
+        End Try
     End Sub
     Private Function bcdNumberToString(ByVal bcd As Byte()) As String
         Dim result As String = ""
@@ -236,11 +261,12 @@ Public Class Form1
         result = Hex(bcdDate(3)) + "/" + Hex(bcdDate(2)) + "/" + Hex(bcdDate(0)) + Hex(bcdDate(1))
         Return result
     End Function
-    Private Sub loadImage()
+    Private Function loadImage()
         Dim pictureContent() As Byte = readFile2()
         Dim icPicture As Image = Drawing.Image.FromStream(New IO.MemoryStream(pictureContent))
         PictureBox1.Image = icPicture
-    End Sub
+        Return pictureContent
+    End Function
     Public Function readSegment(ByVal fileNumber As Integer, ByVal offset As Integer, ByVal length As Integer) As Byte()
         Dim result As UInteger
         Dim bufferLength As Integer
@@ -372,4 +398,7 @@ Public Class Form1
         Return result
     End Function
 
+    Private Sub BindingSource1_CurrentChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
 End Class

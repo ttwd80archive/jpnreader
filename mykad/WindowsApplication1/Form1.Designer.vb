@@ -22,7 +22,6 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
         Me.Button1 = New System.Windows.Forms.Button
         Me.ListBox1 = New System.Windows.Forms.ListBox
         Me.Button2 = New System.Windows.Forms.Button
@@ -30,7 +29,6 @@ Partial Class Form1
         Me.CheckBox1 = New System.Windows.Forms.CheckBox
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -93,11 +91,6 @@ Partial Class Form1
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
         Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
         '
-        'Timer1
-        '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 1000
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -125,6 +118,5 @@ Partial Class Form1
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
 
 End Class
