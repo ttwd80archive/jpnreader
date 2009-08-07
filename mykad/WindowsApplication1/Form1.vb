@@ -208,6 +208,7 @@ Public Class Form1
         Dim pictureContent() As Byte = Nothing
         If CheckBox1.Checked Then
             ToolStripStatusLabel1.Text = "Reading Image..."
+            Me.Refresh()
             pictureContent = loadImage()
             ToolStripStatusLabel1.Text = ""
         End If
