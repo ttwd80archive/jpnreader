@@ -98,7 +98,13 @@ Public Class Form1
 
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        ListBox1.Items.Clear()
+        textId.Text = ""
+        textName.Text = ""
+        textReligion.Text = ""
+        textDOB.Text = ""
+        textRace.Text = ""
+        textGender.Text = ""
+        textAddress.Text = ""
         PictureBox1.Image = Nothing
     End Sub
 
@@ -117,21 +123,16 @@ Public Class Form1
 
         Dim stopwatch As Stopwatch = New Stopwatch()
         stopwatch.Start()
-        ListBox1.Items.Add(DateTime.Now.ToLongTimeString())
-        ListBox1.Refresh()
 
         sb = New System.Text.StringBuilder()
         result = SCardEstablishContext(SCARD_SCOPE_USER, IntPtr.Zero, IntPtr.Zero, hContext)
-        ListBox1.Items.Add("SCardEstablishContext(): " + CStr(result))
         cchReaders = 256
         SCardListReadersW(hContext, Nothing, sb, cchReaders)
 
 
-        ListBox1.Items.Add(sb.ToString())
         szReader = sb.ToString()
 
         result = SCardConnectW(hContext, szReader, SCARD_SHARE_SHARED, SCARD_PROTOCOL_T0, hCard, protocol)
-        ListBox1.Items.Add("SCardConnectW(): " + CStr(result))
 
         ioSendPci.cbPciLength = 8
         ioSendPci.dwProtocol = protocol
@@ -143,12 +144,10 @@ Public Class Form1
         Dim receiveBufferLength As UInteger
         receiveBufferLength = 2
         result = SCardTransmit(hCard, ioSendPci, CmdSelectAppJPN(0), CUInt(CmdSelectAppJPN.Length), ioRecvPci, receiveBuffer(0), receiveBufferLength)
-        ListBox1.Items.Add("SCardTransmit() Select App : " + CStr(result) + ": Length " + CStr(receiveBufferLength))
 
         Dim CmdAppResponse As Byte() = {&H0, &HC0, &H0, &H0, &H5}
         receiveBufferLength = 7
         result = SCardTransmit(hCard, ioSendPci, CmdAppResponse(0), CUInt(CmdAppResponse.Length), ioRecvPci, receiveBuffer(0), receiveBufferLength)
-        ListBox1.Items.Add("SCardTransmit() App Response: " + CStr(result) + ": Length " + CStr(receiveBufferLength))
 
         Dim fileContent1() As Byte = readFile1()
 
@@ -158,8 +157,8 @@ Public Class Form1
         Dim dateIssuedByte(4 - 1) As Byte
         Array.Copy(fileContent1, &H127, dateIssuedByte, 0, 4)
 
-        Dim name As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H3, &H96).Trim()
         Dim id As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H111, &HD).Trim()
+        Dim name As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H3, &H96).Trim()
         Dim gender As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H11E, 1).Trim()
         Dim birthdate As String = bcdDateToString(birthdateByte)
         Dim birthplace As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H12B, &H19).Trim()
@@ -167,26 +166,14 @@ Public Class Form1
         Dim citizenship As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H148, &H12).Trim()
         Dim race As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H15A, &H19).Trim()
         Dim religion As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H173, &HB).Trim()
-        ListBox1.Items.Add("")
-        ListBox1.Items.Add("Name : [" + Name + "]")
-        ListBox1.Items.Add("ID : [" + id + "]")
-        ListBox1.Items.Add("Gender : [" + gender + "]")
-        '+Hex(birthdateByte(1) +""+Hex(birthdateByte(2) +""+Hex(birthdateByte(3)  + 
-        ListBox1.Items.Add("Birth Date : [" + birthdate + "]")
-        ListBox1.Items.Add("BirthPlace : [" + birthplace + "]")
-        ListBox1.Items.Add("Issued Date : [" + issuedDate + "]")
-        ListBox1.Items.Add("Citizenship : [" + citizenship + "]")
-        ListBox1.Items.Add("Race : [" + race + "]")
-        ListBox1.Items.Add("Religion : [" + religion + "]")
-        ListBox1.Items.Add("East Malaysian : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H17E, &H1).Trim() + "]")
-        ListBox1.Items.Add("RJ  ? : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H17F, &H2).Trim() + "]")
-        ListBox1.Items.Add("KT ? : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H181, &H2).Trim() + "]")
-        ListBox1.Items.Add("Category ? : [" + System.Text.Encoding.ASCII.GetString(fileContent1, &H18E, &H1).Trim() + "]")
-        ListBox1.Items.Add("Card version? : [" + CStr(CInt(fileContent1(&H18F))).Trim() + "]")
-        ListBox1.Refresh()
-        '
 
-        ListBox1.Items.Add("Address")
+        textId.Text = id
+        textName.Text = name
+        textReligion.Text = religion
+        textRace.Text = race
+        textGender.Text = gender
+        Me.Refresh()
+
         Dim fileContent4() As Byte = readFile4()
 
         Dim postCodeByte(3 - 1) As Byte
@@ -197,28 +184,21 @@ Public Class Form1
         Dim postcode As String = bcdNumberToString(postCodeByte)
         Dim city As String = System.Text.Encoding.ASCII.GetString(fileContent4, &H60, &H19).Trim()
         Dim state As String = System.Text.Encoding.ASCII.GetString(fileContent4, &H79, &H1E).Trim()
+        Dim address As String
 
-        ListBox1.Items.Add("[" + address1 + "]")
-        ListBox1.Items.Add("[" + address2 + "]")
-        ListBox1.Items.Add("[" + address3 + "]")
-        ListBox1.Items.Add("Postcode : [" + postcode + "]")
-        ListBox1.Items.Add("City : [" + city + "]")
-        ListBox1.Items.Add("State : [" + state + "]")
+
+        address = address1 + ControlChars.CrLf + address2 + ControlChars.CrLf + address3 + ControlChars.CrLf + postcode + " " + city + ControlChars.CrLf + city
+        textAddress.Text = address
 
         Dim pictureContent() As Byte = Nothing
-        If CheckBox1.Checked Then
-            ToolStripStatusLabel1.Text = "Reading Image..."
-            Me.Refresh()
-            pictureContent = loadImage()
-            ToolStripStatusLabel1.Text = ""
-        End If
+        ToolStripStatusLabel1.Text = "Reading Image..."
+        Me.Refresh()
+        pictureContent = loadImage()
+        ToolStripStatusLabel1.Text = ""
 
         stopwatch.Stop()
         SCardReleaseContext(hContext)
         insertIntoDb(id, name, citizenship, race, religion, pictureContent)
-        ListBox1.Items.Add(DateTime.Now.ToLongTimeString())
-        ListBox1.Items.Add("ms elapsed : " + CStr(stopwatch.Elapsed.ToString()))
-        ListBox1.Refresh()
 
     End Sub
     Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal pictureContent As Byte())
@@ -400,6 +380,11 @@ Public Class Form1
     End Function
 
     Private Sub BindingSource1_CurrentChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        textAddress.Text = "A" + ControlChars.CrLf + "B"
 
     End Sub
 End Class

@@ -11,6 +11,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "consoleRunner", "consoleRun
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scardsniffer", "scardsniffer\scardsniffer.vcproj", "{8F795507-034E-4C87-A13F-39BBB23C2A13}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "tjpnreader", "tjpnreader\tjpnreader.vbproj", "{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vbrun", "vbrun\vbrun.vbproj", "{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +75,26 @@ Global
 		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Release|Win32.ActiveCfg = Release|Win32
 		{8F795507-034E-4C87-A13F-39BBB23C2A13}.Release|Win32.Build.0 = Release|Win32
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}.Release|Win32.ActiveCfg = Release|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CA1562BA-C41A-41CC-9D57-A46FC199DD5E}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
