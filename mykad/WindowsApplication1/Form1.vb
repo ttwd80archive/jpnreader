@@ -134,7 +134,7 @@ Public Class Form1
 
         result = SCardListReadersW(hContext, Nothing, sb, cchReaders)
         If (result <> 0) Then
-            MsgBox("Error: SCardListReadersW")
+            MsgBox("Error: Unable to find a smart card reader", MsgBoxStyle.Critical)
             cleanUp()
             Return
         End If
