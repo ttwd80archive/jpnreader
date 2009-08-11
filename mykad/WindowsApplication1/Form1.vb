@@ -112,9 +112,9 @@ Public Class Form1
     Private ioSendPci As SCARD_IO_REQUEST
     Private ioRecvPci As SCARD_IO_REQUEST
     Private imageLoadingProgress As Integer
+    Private hContext As UInteger
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Dim hContext As UInteger
         Dim result As Integer
         Dim sb As System.Text.StringBuilder
         Dim cchReaders As UInteger
@@ -126,13 +126,26 @@ Public Class Form1
 
         sb = New System.Text.StringBuilder()
         result = SCardEstablishContext(SCARD_SCOPE_USER, IntPtr.Zero, IntPtr.Zero, hContext)
+        If (result <> 0) Then
+            MsgBox("Error: SCardEstablishContext")
+            Return
+        End If
         cchReaders = 256
-        SCardListReadersW(hContext, Nothing, sb, cchReaders)
 
+        result = SCardListReadersW(hContext, Nothing, sb, cchReaders)
+        If (result <> 0) Then
+            MsgBox("Error: SCardListReadersW")
+            cleanUp()
+            Return
+        End If
 
         szReader = sb.ToString()
 
         result = SCardConnectW(hContext, szReader, SCARD_SHARE_SHARED, SCARD_PROTOCOL_T0, hCard, protocol)
+        If (result <> 0) Then
+            MsgBox("Error: SCardConnectW")
+            Return
+        End If
 
         ioSendPci.cbPciLength = 8
         ioSendPci.dwProtocol = protocol
@@ -144,12 +157,27 @@ Public Class Form1
         Dim receiveBufferLength As UInteger
         receiveBufferLength = 2
         result = SCardTransmit(hCard, ioSendPci, CmdSelectAppJPN(0), CUInt(CmdSelectAppJPN.Length), ioRecvPci, receiveBuffer(0), receiveBufferLength)
+        If (result <> 0) Then
+            MsgBox("Error: Select JPN Application")
+            cleanUp()
+            Return
+        End If
 
         Dim CmdAppResponse As Byte() = {&H0, &HC0, &H0, &H0, &H5}
         receiveBufferLength = 7
         result = SCardTransmit(hCard, ioSendPci, CmdAppResponse(0), CUInt(CmdAppResponse.Length), ioRecvPci, receiveBuffer(0), receiveBufferLength)
+        If (result <> 0) Then
+            MsgBox("Error: JPN Response")
+            cleanUp()
+            Return
+        End If
 
         Dim fileContent1() As Byte = readFile1()
+        If (fileContent1 Is Nothing) Then
+            MsgBox("Error: Empty Content File 1")
+            cleanUp()
+            Return
+        End If
 
         Dim birthdateByte(4 - 1) As Byte
         Array.Copy(fileContent1, &H127, birthdateByte, 0, 4)
@@ -175,6 +203,11 @@ Public Class Form1
         Me.Refresh()
 
         Dim fileContent4() As Byte = readFile4()
+        If (fileContent4 Is Nothing) Then
+            MsgBox("Error: Empty Content File 4")
+            cleanUp()
+            Return
+        End If
 
         Dim postCodeByte(3 - 1) As Byte
         Array.Copy(fileContent4, &H5D, postCodeByte, 0, 3)
@@ -195,11 +228,18 @@ Public Class Form1
         Me.Refresh()
         pictureContent = loadImage()
         ToolStripStatusLabel1.Text = ""
+        If (pictureContent Is Nothing) Then
+            MsgBox("Error: Empty Content Image")
+            cleanUp()
+            Return
+        End If
 
         stopwatch.Stop()
-        SCardReleaseContext(hContext)
         insertIntoDb(id, name, citizenship, race, religion, pictureContent)
 
+    End Sub
+    Private Sub cleanUp()
+        SCardReleaseContext(hContext)
     End Sub
     Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal pictureContent As Byte())
         Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
@@ -278,7 +318,14 @@ Public Class Form1
         Const LENGTH_1 As Integer = 252
         Const LENGTH_2 As Integer = 207
         Dim content1 As Byte() = readSegment(1, 0, LENGTH_1)
+        If (content1 Is Nothing) Then
+            Return Nothing
+        End If
+
         Dim content2 As Byte() = readSegment(1, LENGTH_1, LENGTH_2)
+        If (content2 Is Nothing) Then
+            Return Nothing
+        End If
         Dim content(LENGTH_1 + LENGTH_2 - 1) As Byte
         Array.Copy(content1, 0, content, 0, LENGTH_1)
         Array.Copy(content2, 0, content, LENGTH_1, LENGTH_2)
@@ -306,6 +353,9 @@ Public Class Form1
                 blockSize = unread
             End If
             Dim blockContent As Byte() = readSegment(2, contentLength, blockSize)
+            If (blockContent Is Nothing) Then
+                Return Nothing
+            End If
             Array.Copy(blockContent, 0, content, contentLength, blockSize)
             contentLength = contentLength + blockContent.Length()
         End While
@@ -380,11 +430,6 @@ Public Class Form1
     End Function
 
     Private Sub BindingSource1_CurrentChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-
-    End Sub
-
-    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        textAddress.Text = "A" + ControlChars.CrLf + "B"
 
     End Sub
 End Class
