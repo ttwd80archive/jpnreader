@@ -41,6 +41,8 @@ Partial Class Form1
         Me.Label6 = New System.Windows.Forms.Label
         Me.textAddress = New System.Windows.Forms.TextBox
         Me.Label7 = New System.Windows.Forms.Label
+        Me.textNationality = New System.Windows.Forms.TextBox
+        Me.Label8 = New System.Windows.Forms.Label
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -183,7 +185,7 @@ Partial Class Form1
         '
         'textAddress
         '
-        Me.textAddress.Location = New System.Drawing.Point(61, 102)
+        Me.textAddress.Location = New System.Drawing.Point(61, 128)
         Me.textAddress.Multiline = True
         Me.textAddress.Name = "textAddress"
         Me.textAddress.Size = New System.Drawing.Size(332, 110)
@@ -192,17 +194,35 @@ Partial Class Form1
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(12, 105)
+        Me.Label7.Location = New System.Drawing.Point(12, 131)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(48, 13)
         Me.Label7.TabIndex = 18
         Me.Label7.Text = "Address:"
+        '
+        'textNationality
+        '
+        Me.textNationality.Location = New System.Drawing.Point(61, 102)
+        Me.textNationality.Name = "textNationality"
+        Me.textNationality.Size = New System.Drawing.Size(176, 20)
+        Me.textNationality.TabIndex = 21
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(1, 105)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(59, 13)
+        Me.Label8.TabIndex = 20
+        Me.Label8.Text = "Nationality:"
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(707, 273)
+        Me.Controls.Add(Me.textNationality)
+        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.textAddress)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.textRace)
@@ -249,5 +269,7 @@ Partial Class Form1
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents textAddress As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents textNationality As System.Windows.Forms.TextBox
+    Friend WithEvents Label8 As System.Windows.Forms.Label
 
 End Class
