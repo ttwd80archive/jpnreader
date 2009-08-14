@@ -105,7 +105,9 @@ Public Class Form1
         textRace.Text = ""
         textGender.Text = ""
         textAddress.Text = ""
+        textNationality.Text = ""
         PictureBox1.Image = Nothing
+        Me.Refresh()
     End Sub
 
     Private hCard As UInteger
@@ -115,6 +117,7 @@ Public Class Form1
     Private hContext As UInteger
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Button2_Click(sender, e)
         Dim result As Integer
         Dim sb As System.Text.StringBuilder
         Dim cchReaders As UInteger
@@ -245,7 +248,8 @@ Public Class Form1
         SCardReleaseContext(hContext)
     End Sub
     Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal gender As String, ByVal pictureContent As Byte())
-        Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
+        'Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
+        Dim connectionString As String = "Dsn=mysql-reg-system"
 
         Dim sql As String = "insert into student (id, name, citizenship, race, religion, gender) values (?, ?, ?, ?, ?, ?)"
         Dim sqlImage As String = "insert into student_image (id, content) values (?, ?)"
@@ -272,6 +276,7 @@ Public Class Form1
         Finally
             c.Close()
         End Try
+        MsgBox("Done")
     End Sub
     Private Function bcdNumberToString(ByVal bcd As Byte()) As String
         Dim result As String = ""
