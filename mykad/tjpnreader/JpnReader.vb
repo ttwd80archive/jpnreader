@@ -125,6 +125,32 @@ Public Class JpnReader
         Return imageContent
     End Function
 
+    Private Function readSegment(ByVal fileNumber As Integer, ByVal offset As Integer, ByVal length As Integer) As Byte()
+        Dim result As UInteger
+        Dim bufferLength As Integer
+        Dim buffer(256) As Byte
+        bufferLength = 256
+        result = issueSetLengthRequest(length, buffer, bufferLength)
+        If (result <> 0) Then
+            Return Nothing
+        End If
+
+        bufferLength = 2
+        result = issueSelectFileRequest(fileNumber, offset, length, buffer, bufferLength)
+        If (result <> 0) Then
+            Return Nothing
+        End If
+
+        bufferLength = 254
+        result = issueGetDataRequest(length, buffer, bufferLength)
+
+        Dim contentLength As Integer = bufferLength - 2 - 1
+        Dim content(contentLength) As Byte
+        For i As Integer = 0 To contentLength
+            content(i) = buffer(i)
+        Next
+        Return content
+    End Function
 
     Private Function issueGetDataRequest(ByVal length As Byte, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
         Dim result As UInteger = 0

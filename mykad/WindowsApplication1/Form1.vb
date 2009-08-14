@@ -316,8 +316,9 @@ Public Class Form1
         bufferLength = 254
         result = issueGetDataRequest(length, buffer, bufferLength)
 
-        Dim content(bufferLength - 2 - 1) As Byte
-        For i As Integer = 0 To (bufferLength - 2 - 1)
+        Dim contentLength As Integer = bufferLength - 2 - 1
+        Dim content(contentLength) As Byte
+        For i As Integer = 0 To contentLength
             content(i) = buffer(i)
         Next
         Return content
