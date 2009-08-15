@@ -354,6 +354,7 @@ Public Class Form1
         Const LENGTH As Integer = 252
         Dim content(LIMIT - 1) As Byte
         Dim contentLength As Integer = 0
+        Dim readCount As Integer = 0
         While contentLength < LIMIT
             Dim blockSize As Integer
             Dim unread As Integer = LIMIT - contentLength
@@ -363,12 +364,15 @@ Public Class Form1
                 blockSize = unread
             End If
             Dim blockContent As Byte() = readSegment(2, contentLength, blockSize)
+            readCount = readCount + 1
+            MsgBox("readCount = " + CStr(readCount) + "readSegment contentLength: " + CStr(contentLength) + "/" + CStr(blockSize))
             If (blockContent Is Nothing) Then
                 Return Nothing
             End If
             Array.Copy(blockContent, 0, content, contentLength, blockSize)
             contentLength = contentLength + blockContent.Length()
         End While
+        MsgBox("Read Count : " + CStr(readCount))
         Dim imageContent(IMAGE_LENGTH - 1) As Byte
         Array.Copy(content, IMAGE_OFFSET, imageContent, 0, IMAGE_LENGTH)
         Return imageContent
