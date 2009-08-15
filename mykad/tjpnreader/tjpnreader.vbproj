@@ -49,6 +49,7 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JpnReader.vb" />
     <Compile Include="JpnReaderEngine.vb" />
     <Compile Include="JpnReaderService.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

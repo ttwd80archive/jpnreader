@@ -9,5 +9,76 @@
         engine.cleanUp()
     End Sub
 
+    Public Function readFile1() As Byte()
+        Const LENGTH_1 As Integer = 252
+        Const LENGTH_2 As Integer = 207
+        Dim content1 As Byte() = engine.readSegment(1, 0, LENGTH_1)
+        If (content1 Is Nothing) Then
+            Return Nothing
+        End If
+
+        Dim content2 As Byte() = engine.readSegment(1, LENGTH_1, LENGTH_2)
+        If (content2 Is Nothing) Then
+            Return Nothing
+        End If
+        Dim content(LENGTH_1 + LENGTH_2 - 1) As Byte
+        Array.Copy(content1, 0, content, 0, LENGTH_1)
+        Array.Copy(content2, 0, content, LENGTH_1, LENGTH_2)
+        Return content
+    End Function
+    Public Function readFile4() As Byte()
+        Const LENGTH As Integer = 171
+        Dim content As Byte() = engine.readSegment(4, 0, LENGTH)
+        Return content
+    End Function
+    Public Function readImagePart(ByVal index As Integer) As Byte
+        Const LIMIT As Integer = 4011
+        Const IMAGE_OFFSET As Integer = 3
+        Const LENGTH As Integer = 252
+        Dim offset As Integer
+        If index = 0 Then
+            offset = IMAGE_OFFSET
+        Else
+            offset = 0
+        End If
+        Dim blockAlign As Integer = (LENGTH * index)
+        Dim blockSize As Integer = LENGTH
+        If offset <> 0 Then
+            blockSize = LENGTH - offset
+        Else
+            If blockAlign + blockSize > LIMIT Then
+                blockSize = (LIMIT - blockAlign)
+            End If
+        End If
+        Dim blockContent As Byte() = engine.readSegment(2, blockAlign + offset, blockSize)
+    End Function
+    Public Function readImageFileFull() As Byte()
+        Const LIMIT As Integer = 4011
+        Const IMAGE_OFFSET As Integer = 3
+        Const IMAGE_LENGTH As Integer = 4000
+        Const LENGTH As Integer = 252
+        Dim content(LIMIT - 1) As Byte
+        Dim contentLength As Integer = 0
+        Dim readCount As Integer = 0
+        While contentLength < LIMIT
+            Dim blockSize As Integer
+            Dim unread As Integer = LIMIT - contentLength
+            If unread > LENGTH Then
+                blockSize = LENGTH
+            Else
+                blockSize = unread
+            End If
+            Dim blockContent As Byte() = engine.readSegment(2, contentLength, blockSize)
+            readCount = readCount + 1
+            If (blockContent Is Nothing) Then
+                Return Nothing
+            End If
+            Array.Copy(blockContent, 0, content, contentLength, blockSize)
+            contentLength = contentLength + blockContent.Length()
+        End While
+        Dim imageContent(IMAGE_LENGTH - 1) As Byte
+        Array.Copy(content, IMAGE_OFFSET, imageContent, 0, IMAGE_LENGTH)
+        Return imageContent
+    End Function
 
 End Class
