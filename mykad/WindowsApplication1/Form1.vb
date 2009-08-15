@@ -188,8 +188,8 @@ Public Class Form1
         Dim dateIssuedByte(4 - 1) As Byte
         Array.Copy(fileContent1, &H127, dateIssuedByte, 0, 4)
 
-        Dim id As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H111, &HD).Trim()
         Dim name As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H3, &H96).Trim()
+        Dim id As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H111, &HD).Trim()
         Dim gender As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H11E, 1).Trim()
         Dim birthdate As String = bcdDateToString(birthdateByte)
         Dim birthplace As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H12B, &H19).Trim()
