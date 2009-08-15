@@ -1,5 +1,5 @@
 ﻿Public Class JpnConversion
-    Public Function bcdByteToDDMMYY(ByVal bcd As Byte()) As String
+    Public Function bcdByteToDDMMYYYY(ByVal bcd As Byte()) As String
         If bcd.Length <> 4 Then
             Return Nothing
         End If
