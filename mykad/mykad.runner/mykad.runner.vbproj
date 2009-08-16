@@ -110,9 +110,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\tjpnreader\tjpnreader.vbproj">
+    <ProjectReference Include="..\tjpnreader\Tabuk.Mykad.vbproj">
       <Project>{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}</Project>
-      <Name>tjpnreader</Name>
+      <Name>Tabuk.Mykad</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

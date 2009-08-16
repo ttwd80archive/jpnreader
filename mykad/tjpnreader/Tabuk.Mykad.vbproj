@@ -8,7 +8,7 @@
     <ProjectGuid>{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Tabuk.MyKad</RootNamespace>
-    <AssemblyName>tjpnreader</AssemblyName>
+    <AssemblyName>Tabuk.MyKad</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
@@ -23,7 +23,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>tjpnreader.xml</DocumentationFile>
+    <DocumentationFile>Tabuk.MyKad.xml</DocumentationFile>
     <NoWarn>
     </NoWarn>
     <RegisterForComInterop>true</RegisterForComInterop>
@@ -35,7 +35,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>tjpnreader.xml</DocumentationFile>
+    <DocumentationFile>Tabuk.MyKad.xml</DocumentationFile>
     <NoWarn>
     </NoWarn>
     <RegisterForComInterop>true</RegisterForComInterop>
@@ -57,7 +57,6 @@
   <ItemGroup>
     <Compile Include="JpnConversion.vb" />
     <Compile Include="JpnReader.vb" />
-    <Compile Include="JpnReaderCOM.vb" />
     <Compile Include="JpnReaderEngine.vb" />
     <Compile Include="JpnReaderService.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

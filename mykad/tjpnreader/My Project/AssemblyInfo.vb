@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("tjpnreader")> 
+<Assembly: AssemblyTitle("Tabuk Mykad Reader")> 
 <Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("tjpnreader")> 
+<Assembly: AssemblyCompany("Tabuk Technologies")> 
+<Assembly: AssemblyProduct("Tabuk Mykad Reader")> 
 <Assembly: AssemblyCopyright("Copyright ©  2009")> 
 <Assembly: AssemblyTrademark("")> 
 
