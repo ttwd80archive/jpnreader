@@ -189,7 +189,7 @@
         cmd(3) = 0
         cmd(4) = 8
 
-        top = CByte(fileNumber)
+        top = CInt(fileNumber)
         bottom = 256
 
         d = top \ bottom
@@ -198,7 +198,7 @@
         cmd(7) = 1
         cmd(8) = 0
 
-        top = CByte(offset)
+        top = CInt(offset)
         bottom = 256
         d = top \ bottom
         cmd(9) = CByte(top Mod bottom)

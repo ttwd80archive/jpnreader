@@ -31,10 +31,11 @@
         Dim content As Byte() = engine.readSegment(4, 0, LENGTH)
         Return content
     End Function
-    Public Function readImagePart(ByVal index As UInteger) As Byte
+    Public Function readImagePart(ByVal index As UInteger) As Byte()
         Const LIMIT As UInteger = 4011
         Const IMAGE_OFFSET As UInteger = 3
         Const LENGTH As UInteger = 252
+        Const END_PADDING_LENGTH As UInteger = 8
         Dim offset As UInteger
         If index = 0 Then
             offset = IMAGE_OFFSET
@@ -43,14 +44,13 @@
         End If
         Dim blockAlign As UInteger = (LENGTH * index)
         Dim blockSize As UInteger = LENGTH
-        If offset <> 0 Then
-            blockSize = LENGTH - offset
-        Else
-            If blockAlign + blockSize > LIMIT Then
-                blockSize = (LIMIT - blockAlign)
-            End If
+        If blockAlign + blockSize > LIMIT Then
+            blockSize = CUInt(LIMIT - blockAlign - END_PADDING_LENGTH)
         End If
-        Dim blockContent As Byte() = engine.readSegment(2, blockAlign + offset, blockSize)
+        Dim blockContent As Byte() = engine.readSegment(2, blockAlign, blockSize)
+        Dim imageContent(CInt(blockSize - offset - 1)) As Byte
+        Array.Copy(blockContent, offset, imageContent, 0, blockSize - offset)
+        Return imageContent
     End Function
     Public Function readImageFileFull() As Byte()
         Const LIMIT As UInteger = 4011

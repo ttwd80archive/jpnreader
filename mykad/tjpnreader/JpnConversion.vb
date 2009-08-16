@@ -7,6 +7,11 @@
         result = bcdBytetoHex(bcd(3)) + "/" + bcdBytetoHex(bcd(2)) + "/" + bcdBytetoHex(bcd(0)) + bcdBytetoHex(bcd(1))
         Return result
     End Function
+    Public Function toPostcodeString(ByVal content As Byte()) As String
+        Return bcdBytetoHex(content(0)) + bcdBytetoHex(content(1)) + bcdBytetoHex(content(2))
+    End Function
+
+
     Private Function bcdBytetoHex(ByVal b As Byte) As String
         Dim zero As Char = CChar("0")
         Return Hex(b).PadLeft(2, zero)
