@@ -25,6 +25,9 @@
         szOldId = Text.Encoding.ASCII.GetString(file1Content, &H11F, &H8).Trim()
         szBirthdate = toDateString(file1Content, &H127)
         szBirthplace = Text.Encoding.ASCII.GetString(file1Content, &H12B, &H19).Trim()
+        szDateIssued = toDateString(file1Content, &H144)
+        szCitizenship = Text.Encoding.ASCII.GetString(file1Content, &H148, &H12).Trim()
+        szRace = Text.Encoding.ASCII.GetString(file1Content, &H15A, &H19).Trim()
         Return True
     End Function
 
@@ -72,6 +75,24 @@
     Public ReadOnly Property birthplace() As String
         Get
             Return szBirthplace
+        End Get
+    End Property
+    Private szDateIssued As String
+    Public ReadOnly Property dateIssued() As String
+        Get
+            Return szDateIssued
+        End Get
+    End Property
+    Private szCitizenship As String
+    Public ReadOnly Property citizenship() As String
+        Get
+            Return szCitizenship
+        End Get
+    End Property
+    Private szRace As String
+    Public ReadOnly Property race() As String
+        Get
+            Return szRace
         End Get
     End Property
 

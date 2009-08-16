@@ -4,7 +4,11 @@
             Return Nothing
         End If
         Dim result As String
-        result = Hex(bcd(3)) + "/" + Hex(bcd(2)) + "/" + Hex(bcd(0)) + Hex(bcd(1))
+        result = bcdBytetoHex(bcd(3)) + "/" + bcdBytetoHex(bcd(2)) + "/" + bcdBytetoHex(bcd(0)) + bcdBytetoHex(bcd(1))
         Return result
+    End Function
+    Private Function bcdBytetoHex(ByVal b As Byte) As String
+        Dim zero As Char = CChar("0")
+        Return Hex(b).PadLeft(2, zero)
     End Function
 End Class
