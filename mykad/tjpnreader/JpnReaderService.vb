@@ -19,13 +19,13 @@
         If file4Content Is Nothing Then
             Return False
         End If
-        Return True
         szOriginalName = Text.Encoding.ASCII.GetString(file1Content, &H3, &H96).Trim()
         szIcno = Text.Encoding.ASCII.GetString(file1Content, &H111, &HD).Trim()
         szGender = Text.Encoding.ASCII.GetString(file1Content, &H11E, 1).Trim()
         szOldId = Text.Encoding.ASCII.GetString(file1Content, &H11F, &H8).Trim()
         szBirthdate = toDateString(file1Content, &H127)
         szBirthplace = Text.Encoding.ASCII.GetString(file1Content, &H12B, &H19).Trim()
+        Return True
     End Function
 
     Private Function toDateString(ByVal content As Byte(), ByVal offset As Integer) As String
@@ -50,7 +50,7 @@
         End Get
     End Property
     Private szGender As String
-    Public ReadOnly Property gender() As Integer
+    Public ReadOnly Property gender() As String
         Get
             Return szGender
         End Get

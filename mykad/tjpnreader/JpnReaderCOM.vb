@@ -27,7 +27,7 @@ Public Class JpnReaderCOM
         service.cleanUp()
     End Sub
 
-    Public Function readTextInfo() As String
+    Public Function readTextInfo() As Boolean
         Return service.readTextInfo()
     End Function
 

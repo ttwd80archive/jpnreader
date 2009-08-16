@@ -31,18 +31,18 @@
         Dim content As Byte() = engine.readSegment(4, 0, LENGTH)
         Return content
     End Function
-    Public Function readImagePart(ByVal index As Integer) As Byte
-        Const LIMIT As Integer = 4011
-        Const IMAGE_OFFSET As Integer = 3
-        Const LENGTH As Integer = 252
-        Dim offset As Integer
+    Public Function readImagePart(ByVal index As UInteger) As Byte
+        Const LIMIT As UInteger = 4011
+        Const IMAGE_OFFSET As UInteger = 3
+        Const LENGTH As UInteger = 252
+        Dim offset As UInteger
         If index = 0 Then
             offset = IMAGE_OFFSET
         Else
             offset = 0
         End If
-        Dim blockAlign As Integer = (LENGTH * index)
-        Dim blockSize As Integer = LENGTH
+        Dim blockAlign As UInteger = (LENGTH * index)
+        Dim blockSize As UInteger = LENGTH
         If offset <> 0 Then
             blockSize = LENGTH - offset
         Else
@@ -53,16 +53,16 @@
         Dim blockContent As Byte() = engine.readSegment(2, blockAlign + offset, blockSize)
     End Function
     Public Function readImageFileFull() As Byte()
-        Const LIMIT As Integer = 4011
+        Const LIMIT As UInteger = 4011
         Const IMAGE_OFFSET As Integer = 3
         Const IMAGE_LENGTH As Integer = 4000
         Const LENGTH As Integer = 252
         Dim content(LIMIT - 1) As Byte
-        Dim contentLength As Integer = 0
+        Dim contentLength As UInteger = 0
         Dim readCount As Integer = 0
         While contentLength < LIMIT
-            Dim blockSize As Integer
-            Dim unread As Integer = LIMIT - contentLength
+            Dim blockSize As UInteger
+            Dim unread As UInteger = LIMIT - contentLength
             If unread > LENGTH Then
                 blockSize = LENGTH
             Else
@@ -74,7 +74,7 @@
                 Return Nothing
             End If
             Array.Copy(blockContent, 0, content, contentLength, blockSize)
-            contentLength = contentLength + blockContent.Length()
+            contentLength = contentLength + CUInt(blockContent.Length())
         End While
         Dim imageContent(IMAGE_LENGTH - 1) As Byte
         Array.Copy(content, IMAGE_OFFSET, imageContent, 0, IMAGE_LENGTH)

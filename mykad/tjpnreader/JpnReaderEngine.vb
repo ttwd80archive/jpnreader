@@ -100,13 +100,53 @@
 
     Public Function init() As Integer
         Dim result As Integer
-        result = SCardEstablishContext(SCARD_SCOPE_USER, IntPtr.Zero, IntPtr.Zero, hContext)
-        Return result
-    End Function
+        result = establishContext()
+        If result <> 0 Then
+            Return result
+        End If
+        Dim sb As Text.StringBuilder = New Text.StringBuilder()
+        Dim cchReaders As UInteger = 256
+        result = SCardListReadersW(hContext, Nothing, sb, cchReaders)
+        If result <> 0 Then
+            Return result
+        End If
+        Dim szReader As String = sb.ToString()
+        Dim protocol As UInteger
 
-    Public Function readSegment(ByVal fileNumber As Integer, ByVal offset As Integer, ByVal length As Integer) As Byte()
-        Dim result As UInteger
-        Dim bufferLength As Integer
+        result = SCardConnectW(hContext, szReader, SCARD_SHARE_SHARED, SCARD_PROTOCOL_T0, hCard, protocol)
+        If (result <> 0) Then
+            Return result
+        End If
+
+        ioSendPci.cbPciLength = 8
+        ioSendPci.dwProtocol = protocol
+        ioRecvPci.cbPciLength = 8
+        ioRecvPci.dwProtocol = protocol
+
+        Dim CmdSelectAppJPN As Byte() = {&H0, &HA4, &H4, &H0, &HA, &HA0, &H0, &H0, &H0, &H74, &H4A, &H50, &H4E, &H0, &H10}
+        Dim receiveBuffer(262) As Byte
+        Dim receiveBufferLength As UInteger
+        receiveBufferLength = 2
+        result = SCardTransmit(hCard, ioSendPci, CmdSelectAppJPN(0), CUInt(CmdSelectAppJPN.Length), ioRecvPci, receiveBuffer(0), receiveBufferLength)
+        If (result <> 0) Then
+            Return result
+        End If
+
+        Dim CmdAppResponse As Byte() = {&H0, &HC0, &H0, &H0, &H5}
+        receiveBufferLength = 7
+        result = SCardTransmit(hCard, ioSendPci, CmdAppResponse(0), CUInt(CmdAppResponse.Length), ioRecvPci, receiveBuffer(0), receiveBufferLength)
+        If (result <> 0) Then
+            Return result
+        End If
+
+        Return 0
+    End Function
+    Private Function establishContext() As Integer
+        Return SCardEstablishContext(SCARD_SCOPE_USER, IntPtr.Zero, IntPtr.Zero, hContext)
+    End Function
+    Public Function readSegment(ByVal fileNumber As UInteger, ByVal offset As UInteger, ByVal length As UInteger) As Byte()
+        Dim result As Integer
+        Dim bufferLength As UInteger
         Dim buffer(256) As Byte
         bufferLength = 256
         result = issueSetLengthRequest(length, buffer, bufferLength)
@@ -123,9 +163,9 @@
         bufferLength = 254
         result = issueGetDataRequest(length, buffer, bufferLength)
 
-        Dim contentLength As Integer = bufferLength - 2 - 1
-        Dim content(contentLength) As Byte
-        For i As Integer = 0 To contentLength
+        Dim contentLength As UInteger = CUInt(bufferLength - 2 - 1)
+        Dim content(CInt(contentLength)) As Byte
+        For i As Integer = 0 To CInt(contentLength)
             content(i) = buffer(i)
         Next
         Return content
@@ -135,7 +175,7 @@
         SCardReleaseContext(hContext)
     End Sub
 
-    Private Function issueSelectFileRequest(ByVal fileNumber As Byte, ByVal offset As Integer, ByVal length As Byte, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
+    Private Function issueSelectFileRequest(ByVal fileNumber As UInteger, ByVal offset As UInteger, ByVal length As UInteger, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger) As Integer
         Dim cmd(12) As Byte
         Dim result As Integer
         Dim top As Integer
@@ -149,42 +189,42 @@
         cmd(3) = 0
         cmd(4) = 8
 
-        top = fileNumber
+        top = CByte(fileNumber)
         bottom = 256
 
         d = top \ bottom
-        cmd(5) = top Mod bottom
-        cmd(6) = d
+        cmd(5) = CByte(top Mod bottom)
+        cmd(6) = CByte(d)
         cmd(7) = 1
         cmd(8) = 0
 
-        top = offset
+        top = CByte(offset)
         bottom = 256
         d = top \ bottom
-        cmd(9) = top Mod bottom
-        cmd(10) = d
+        cmd(9) = CByte(top Mod bottom)
+        cmd(10) = CByte(d)
 
-        cmd(11) = length
+        cmd(11) = CByte(length)
         cmd(12) = 0
-        result = SCardTransmit(hCard, ioSendPci, cmd(0), cmd.Length, ioRecvPci, receiveBuffer(0), bufferLength)
+        result = SCardTransmit(hCard, ioSendPci, cmd(0), CUInt(cmd.Length), ioRecvPci, receiveBuffer(0), bufferLength)
         Return result
     End Function
 
 
-    Private Function issueGetDataRequest(ByVal length As Byte, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
-        Dim result As UInteger = 0
+    Private Function issueGetDataRequest(ByVal length As UInteger, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger) As Integer
+        Dim result As Integer = 0
         Dim cmd(5) As Byte
         cmd(0) = 204
         cmd(1) = 6
         cmd(2) = 0
         cmd(3) = 0
-        cmd(4) = length
+        cmd(4) = CByte(length)
         result = SCardTransmit(hCard, ioSendPci, cmd(0), 5, ioRecvPci, receiveBuffer(0), bufferLength)
         Return result
     End Function
 
-    Private Function issueSetLengthRequest(ByVal length As UInteger, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger)
-        Dim result As UInteger = 0
+    Private Function issueSetLengthRequest(ByVal length As UInteger, ByRef receiveBuffer As Byte(), ByRef bufferLength As UInteger) As Integer
+        Dim result As Integer = 0
         Dim CmdSetLength(9) As Byte
         CmdSetLength(0) = 200
         CmdSetLength(1) = 50
