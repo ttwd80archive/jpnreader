@@ -9,6 +9,8 @@
 <link type="text/css"
 	href="<s:url value="/static/js/jquery-ui/themes/base/jquery-ui.css" />"
 	rel="stylesheet" />
+<link type="text/css" href="<s:url value="/static/css/home.css" />"
+	rel="stylesheet" />
 </head>
 <body>
 <s:form action="saveOrUpdate" theme="simple">
@@ -21,7 +23,7 @@
 		<tbody>
 			<tr>
 				<td colspan="3">
-				<button style="width: 400px" id="buttonRead" type="button">Read</button>
+				<button style="width: 400px" id="button-read" type="button">Read</button>
 				</td>
 			</tr>
 			<tr>
@@ -70,7 +72,6 @@
 		</tbody>
 	</table>
 </s:form>
-<div id="progress-bar"></div>
 <s:form action="displayImage">
 	<s:hidden name="blockCount" id="blockCount" value="16" />
 	<s:hidden name="imageBlock0" id="imageBlock0" />
@@ -90,23 +91,18 @@
 	<s:hidden name="imageBlock14" id="imageBlock14" />
 	<s:hidden name="imageBlock15" id="imageBlock15" />
 </s:form>
-
+<div id="progress-dialog-parent">
+<div id="progress-dialog" class="progress-dialog">
+<div id="progress-bar"></div>
+<div id="progress-status"></div>
+</div>
+</div>
 <script type="text/javascript"
 	src="<s:url value="/static/js/jquery-1.3.2.js" />"></script>
 <script type="text/javascript"
 	src="<s:url value="/static/js/jquery-ui/ui/jquery-ui.js" />"></script>
-<script type="text/javascript">
-	function read() {
-		$("#progress-bar").progressbar( {
-			value : 37
-		});
-	}
-	function init_page()
-	{
-		
-	}
-	jQuery(document).ready(init_page);
-</script>
+<script type="text/javascript"
+	src="<s:url value="/static/js/home.js" />"></script>
 </body>
 </html>
 
