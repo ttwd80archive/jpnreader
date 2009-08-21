@@ -8,7 +8,7 @@
 </head>
 <body>
 <s:form action="saveOrUpdate" theme="simple">
-	<table>
+	<table style="width: 600px">
 		<thead>
 			<tr>
 				<th colspan="3">Tabuk Tech Mykad Reader Demo</th>
@@ -16,20 +16,52 @@
 		</thead>
 		<tbody>
 			<tr>
+				<td colspan="3">
+				<button style="width: 400px" id="buttonRead" type="button">Read</button>
+				</td>
+			</tr>
+			<tr>
 				<td>Name :</td>
-				<td><s:text name="name" id="name" /></td>
+				<td style="width: 350px"><s:textfield name="name" id="name"
+					cssStyle="width: 300px" /></td>
 
-				<td rowspan="5"><img
-					src="<s:url value="/static/img/no_picture.jpg" />" alt="image"
-					width="200" height="150" /></td>
+				<td rowspan="7"><img
+					src="<s:url value="/static/img/blank.jpg" />" alt="image"
+					width="150" height="200" /></td>
 			</tr>
 			<tr>
 				<td>IC Number:</td>
-				<s:text name="id" id="id" />
+				<td><s:textfield name="id" id="id" /></td>
+
 			</tr>
 			<tr>
-				<td>IC Number:</td>
-				<s:text name="id" id="id" />
+				<td>Religion:</td>
+				<td><s:textfield name="religion" id="religion" /></td>
+			</tr>
+			<tr>
+				<td>Race:</td>
+				<td><s:textfield name="race" id="race" /></td>
+
+			</tr>
+			<tr>
+				<td>Date of Birth:</td>
+				<td><s:textfield name="dob" id="dob" /></td>
+
+			</tr>
+			<tr>
+				<td>Gender:</td>
+				<td><s:textfield name="gender" id="gender" /></td>
+
+			</tr>
+			<tr>
+				<td>Nationality:</td>
+				<td><s:textfield name="nationality" id="nationality" /></td>
+
+			</tr>
+			<tr>
+				<td>Address :</td>
+				<td><s:textarea cols="40" rows="4" name="address" id="address" /></td>
+
 			</tr>
 		</tbody>
 	</table>

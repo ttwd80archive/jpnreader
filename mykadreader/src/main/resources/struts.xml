@@ -8,7 +8,7 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.objectFactory" value="spring" />
 
-	<package name="struts" namespace="/">
+	<package name="struts" namespace="/" extends="struts-default">
 		<action name="home">
 			<result>home.jsp</result>
 		</action>
