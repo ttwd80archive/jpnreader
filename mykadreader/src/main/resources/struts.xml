@@ -12,6 +12,21 @@
 		<action name="home">
 			<result>home.jsp</result>
 		</action>
+
+		<action name="pushImageAction" class="pushImageAction">
+			<result name="success" type="httpheader">
+				<param name="status">200</param>
+			</result>
+		</action>
+
+		<action name="pullImageAction" class="pullImageAction">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+			</result>
+			<result name="error" type="httpheader">
+				<param name="status">404</param>
+			</result>
+		</action>
 	</package>
 
 </struts>

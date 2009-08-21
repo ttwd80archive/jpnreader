@@ -3,6 +3,7 @@
     <wb-module deploy-name="mykadreader">
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <property name="context-root" value="mykadreader"/>
         <property name="java-output-path"/>
     </wb-module>
