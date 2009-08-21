@@ -5,6 +5,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Tabuk Tech Mykad Reader Demo</title>
+
+<link type="text/css"
+	href="<s:url value="/static/js/jquery-ui/themes/base/jquery-ui.css" />"
+	rel="stylesheet" />
 </head>
 <body>
 <s:form action="saveOrUpdate" theme="simple">
@@ -66,6 +70,7 @@
 		</tbody>
 	</table>
 </s:form>
+<div id="progress-bar"></div>
 <s:form action="displayImage">
 	<s:hidden name="blockCount" id="blockCount" value="16" />
 	<s:hidden name="imageBlock0" id="imageBlock0" />
@@ -88,10 +93,19 @@
 
 <script type="text/javascript"
 	src="<s:url value="/static/js/jquery-1.3.2.js" />"></script>
+<script type="text/javascript"
+	src="<s:url value="/static/js/jquery-ui/ui/jquery-ui.js" />"></script>
 <script type="text/javascript">
 	function read() {
+		$("#progress-bar").progressbar( {
+			value : 37
+		});
 	}
-	jQuery(document).ready(read);
+	function init_page()
+	{
+		
+	}
+	jQuery(document).ready(init_page);
 </script>
 </body>
 </html>
