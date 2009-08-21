@@ -129,7 +129,7 @@
                prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/>
         -->
 
-      </Host>
+      <Context docBase="mykadreader" path="/mykadreader" reloadable="true" source="org.eclipse.jst.j2ee.server:mykadreader"/></Host>
     </Engine>
   </Service>
 </Server>
