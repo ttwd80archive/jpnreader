@@ -19,14 +19,28 @@ function activeX_transfer_basic_properties(activeXObject) {
 	address = address + activeXObject.address1;
 	address = address + '\n' + activeXObject.address2;
 	address = address + '\n' + activeXObject.address3;
-	address = address + '\n' + activeXObject.postcode + ' ' + activeXObject.city;
+	address = address + '\n' + activeXObject.postcode + ' '
+			+ activeXObject.city;
 	address = address + '\n' + activeXObject.state;
-	
 	$('#address').val(address);
-	
-}
+
+};
+
+function activeX_read_image(activeXObject) {
+	$('#imageId').val($('#id').val());
+	var i = 0;
+	var elementSelector = 'imageBlock' + i;
+	while ($('#' + elementSelector).size() == 1) {
+		var statusText = "Reading image segment [" + i + "]";
+		$('#progress-status').text(statusText);
+		var content = activeXObject.getImageContent(i);
+		$('#' + elementSelector).val(content);
+		i++;
+		elementSelector = 'imageBlock' + i;
+	}
+};
+
 function readUsingService() {
-	var activeXObject;
 	var activeXId = "Tabuk.MyKad.JpnReaderService";
 	try {
 		$('#progress-status').text("Unable to create ActiveX object");
@@ -47,6 +61,7 @@ function readUsingService() {
 			return false;
 		}
 		activeX_transfer_basic_properties(activeXObject);
+		activeX_read_image(activeXObject);
 		activeXObject.cleanUp();
 		return true;
 	} catch (e) {
@@ -65,7 +80,7 @@ function hook_up_read() {
 		$('#progress-dialog').dialog('open');
 		$('#progress-status').text("Reading text info...");
 		if (readUsingService()) {
-			//$('#progress-dialog').dialog('close');
+			// $('#progress-dialog').dialog('close');
 		}
 
 	});

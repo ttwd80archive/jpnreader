@@ -1,4 +1,4 @@
-﻿Public Class JpnReaderEngine
+﻿Class JpnReaderEngine
     <System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)> _
     Public Structure SCARD_IO_REQUEST
 
@@ -145,30 +145,33 @@
         Return SCardEstablishContext(SCARD_SCOPE_USER, IntPtr.Zero, IntPtr.Zero, hContext)
     End Function
     Public Function readSegment(ByVal fileNumber As UInteger, ByVal offset As UInteger, ByVal length As UInteger) As Byte()
-        Dim result As Integer
-        Dim bufferLength As UInteger
-        Dim buffer(256) As Byte
-        bufferLength = 256
-        result = issueSetLengthRequest(length, buffer, bufferLength)
-        If (result <> 0) Then
-            Return Nothing
-        End If
+        SyncLock Me
+            Dim result As Integer
+            Dim bufferLength As UInteger
+            Dim buffer(256) As Byte
+            bufferLength = 256
+            result = issueSetLengthRequest(length, buffer, bufferLength)
+            If (result <> 0) Then
+                Return Nothing
+            End If
 
-        bufferLength = 2
-        result = issueSelectFileRequest(fileNumber, offset, length, buffer, bufferLength)
-        If (result <> 0) Then
-            Return Nothing
-        End If
+            bufferLength = 2
+            result = issueSelectFileRequest(fileNumber, offset, length, buffer, bufferLength)
+            If (result <> 0) Then
+                Return Nothing
+            End If
 
-        bufferLength = 254
-        result = issueGetDataRequest(length, buffer, bufferLength)
+            bufferLength = 254
+            result = issueGetDataRequest(length, buffer, bufferLength)
 
-        Dim contentLength As UInteger = CUInt(bufferLength - 2 - 1)
-        Dim content(CInt(contentLength)) As Byte
-        For i As Integer = 0 To CInt(contentLength)
-            content(i) = buffer(i)
-        Next
-        Return content
+            Dim contentLength As UInteger = CUInt(bufferLength - 2 - 1)
+            Dim content(CInt(contentLength)) As Byte
+            For i As Integer = 0 To CInt(contentLength)
+                content(i) = buffer(i)
+            Next
+            Return content
+        End SyncLock
+
     End Function
 
     Public Sub cleanUp()

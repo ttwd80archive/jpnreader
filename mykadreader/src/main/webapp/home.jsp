@@ -73,24 +73,26 @@
 		</tbody>
 	</table>
 </s:form>
-<s:form action="displayImage">
-	<s:hidden name="blockCount" id="blockCount" value="16" />
-	<s:hidden name="imageBlock0" id="imageBlock0" />
-	<s:hidden name="imageBlock1" id="imageBlock1" />
-	<s:hidden name="imageBlock2" id="imageBlock2" />
-	<s:hidden name="imageBlock3" id="imageBlock3" />
-	<s:hidden name="imageBlock4" id="imageBlock4" />
-	<s:hidden name="imageBlock5" id="imageBlock5" />
-	<s:hidden name="imageBlock6" id="imageBlock6" />
-	<s:hidden name="imageBlock7" id="imageBlock7" />
-	<s:hidden name="imageBlock8" id="imageBlock8" />
-	<s:hidden name="imageBlock9" id="imageBlock9" />
-	<s:hidden name="imageBlock0" id="imageBlock0" />
-	<s:hidden name="imageBlock11" id="imageBlock11" />
-	<s:hidden name="imageBlock12" id="imageBlock12" />
-	<s:hidden name="imageBlock13" id="imageBlock13" />
-	<s:hidden name="imageBlock14" id="imageBlock14" />
-	<s:hidden name="imageBlock15" id="imageBlock15" />
+<s:form action="submitImage" theme="simple">
+	<s:textfield name="blockCount" id="blockCount" value="16" />
+	<s:textfield name="imageId" id="imageId" />
+	<s:textfield name="imageBlock0" id="imageBlock0" />
+	<s:textfield name="imageBlock1" id="imageBlock1" />
+	<s:textfield name="imageBlock2" id="imageBlock2" />
+	<s:textfield name="imageBlock3" id="imageBlock3" maxlength="900" />
+	<div class="imageBlock3"></div>
+	<s:textfield name="imageBlock4" id="imageBlock4" />
+	<s:textfield name="imageBlock5" id="imageBlock5" />
+	<s:textfield name="imageBlock6" id="imageBlock6" />
+	<s:textfield name="imageBlock7" id="imageBlock7" />
+	<s:textfield name="imageBlock8" id="imageBlock8" />
+	<s:textfield name="imageBlock9" id="imageBlock9" />
+	<s:textfield name="imageBlock10" id="imageBlock10" />
+	<s:textfield name="imageBlock11" id="imageBlock11" />
+	<s:textfield name="imageBlock12" id="imageBlock12" />
+	<s:textfield name="imageBlock13" id="imageBlock13" />
+	<s:textfield name="imageBlock14" id="imageBlock14" />
+	<s:textfield name="imageBlock15" id="imageBlock15" />
 </s:form>
 <div id="progress-dialog-parent">
 <div id="progress-dialog" class="progress-dialog">
