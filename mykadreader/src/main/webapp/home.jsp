@@ -56,7 +56,8 @@
 			</tr>
 			<tr>
 				<td>Gender:</td>
-				<td><s:textfield name="gender" id="gender" /></td>
+				<td><s:select name="gender" id="gender"
+					list="#{'P':'Perempuan','L':'Lelaki'}" /></td>
 
 			</tr>
 			<tr>
@@ -66,7 +67,7 @@
 			</tr>
 			<tr>
 				<td>Address :</td>
-				<td><s:textarea cols="40" rows="4" name="address" id="address" /></td>
+				<td><s:textarea cols="40" rows="5" name="address" id="address" /></td>
 
 			</tr>
 		</tbody>

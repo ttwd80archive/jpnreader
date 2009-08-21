@@ -7,7 +7,24 @@ function init_dialog() {
 	});
 
 }
-
+function activeX_transfer_basic_properties(activeXObject) {
+	$('#id').val(activeXObject.icno);
+	$('#name').val(activeXObject.originalName);
+	$('#religion').val(activeXObject.religion);
+	$('#race').val(activeXObject.race);
+	$('#dob').val(activeXObject.birthdate);
+	$('#gender').val(activeXObject.gender);
+	$('#nationality').val(activeXObject.citizenship);
+	var address = '';
+	address = address + activeXObject.address1;
+	address = address + '\n' + activeXObject.address2;
+	address = address + '\n' + activeXObject.address3;
+	address = address + '\n' + activeXObject.postcode + ' ' + activeXObject.city;
+	address = address + '\n' + activeXObject.state;
+	
+	$('#address').val(address);
+	
+}
 function readUsingService() {
 	var activeXObject;
 	var activeXId = "Tabuk.MyKad.JpnReaderService";
@@ -29,9 +46,7 @@ function readUsingService() {
 			activeXObject.cleanUp();
 			return false;
 		}
-		$('#id').val(activeXObject.icno);
-		$('#name').val(activeXObject.originalName);
-		$('#religion').val(activeXObject.religion);
+		activeX_transfer_basic_properties(activeXObject);
 		activeXObject.cleanUp();
 		return true;
 	} catch (e) {
@@ -50,7 +65,7 @@ function hook_up_read() {
 		$('#progress-dialog').dialog('open');
 		$('#progress-status').text("Reading text info...");
 		if (readUsingService()) {
-			$('#progress-dialog').dialog('close');
+			//$('#progress-dialog').dialog('close');
 		}
 
 	});
