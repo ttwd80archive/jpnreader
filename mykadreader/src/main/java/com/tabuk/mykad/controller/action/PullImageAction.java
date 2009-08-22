@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Map;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ParameterAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -29,7 +30,8 @@ public class PullImageAction implements Action, ParameterAware {
 	public String execute() throws Exception {
 		final String[] ids = parameters.get("id");
 		if (ids.length == 1) {
-			final String key = ids[0];
+			final String sessionId = ServletActionContext.getRequest().getSession().getId();
+			final String key = sessionId + ":" + ids[0];
 			final byte[] content = (byte[]) cacheService.get(key);
 			if (content != null) {
 				inputStream = new ByteArrayInputStream(content);

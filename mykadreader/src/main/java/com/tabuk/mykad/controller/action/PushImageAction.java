@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -39,7 +40,8 @@ public class PushImageAction implements Action {
 
 	public String execute() throws Exception {
 		final int count = encodedImageForm.getBlockCount();
-		final String id = encodedImageForm.getId();
+		final String sessionId = ServletActionContext.getRequest().getSession().getId();
+		final String id = sessionId + ":" + encodedImageForm.getId();
 		final ByteArrayOutputStream os = new ByteArrayOutputStream();
 		final List<String> encodedBlocks = encodedImageForm.getBlocks();
 		for (int i = 0; i < count; i++) {
