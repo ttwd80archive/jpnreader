@@ -38,7 +38,6 @@ function activeX_read_image(activeXObject) {
 		i++;
 		elementSelector = 'imageBlock' + i;
 	}
-	alert(' not found ' + elementSelector);
 	return;
 };
 
@@ -46,7 +45,6 @@ function show_image(responseText, statusText) {
 	var getAction = jQuery('form#pullImageAction').attr('action');
 	var imageLocation = getAction + '?' + 'id=' + jQuery('#imageId').val();
 	jQuery('#photo').attr('src', imageLocation);
-	alert('ok');
 };
 
 function activeX_image_submit() {
@@ -54,7 +52,6 @@ function activeX_image_submit() {
 		"cache" : false,
 		"success" : show_image
 	};
-	alert('before submit2');
 	jQuery('form#pushImageAction').ajaxSubmit(options);
 };
 

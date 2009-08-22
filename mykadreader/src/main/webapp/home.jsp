@@ -78,23 +78,23 @@
 	method="post">
 	<s:textfield name="encodedImageForm.blockCount" id="blockCount"
 		value="16" />
-	<s:textfield name="encodedImageForm.id" id="imageId" />
-	<s:textfield name="encodedImageForm.blocks[0]" id="imageBlock0" />
-	<s:textfield name="encodedImageForm.blocks[1]" id="imageBlock1" />
-	<s:textfield name="encodedImageForm.blocks[2]" id="imageBlock2" />
-	<s:textfield name="encodedImageForm.blocks[3]" id="imageBlock3" />
-	<s:textfield name="encodedImageForm.blocks[4]" id="imageBlock4" />
-	<s:textfield name="encodedImageForm.blocks[5]" id="imageBlock5" />
-	<s:textfield name="encodedImageForm.blocks[6]" id="imageBlock6" />
-	<s:textfield name="encodedImageForm.blocks[7]" id="imageBlock7" />
-	<s:textfield name="encodedImageForm.blocks[8]" id="imageBlock8" />
-	<s:textfield name="encodedImageForm.blocks[9]" id="imageBlock9" />
-	<s:textfield name="encodedImageForm.blocks[10]" id="imageBlock10" />
-	<s:textfield name="encodedImageForm.blocks[11]" id="imageBlock11" />
-	<s:textfield name="encodedImageForm.blocks[12]" id="imageBlock12" />
-	<s:textfield name="encodedImageForm.blocks[13]" id="imageBlock13" />
-	<s:textfield name="encodedImageForm.blocks[14]" id="imageBlock14" />
-	<s:textfield name="encodedImageForm.blocks[15]" id="imageBlock15" />
+	<s:hidden name="encodedImageForm.id" id="imageId" />
+	<s:hidden name="encodedImageForm.blocks[0]" id="imageBlock0" />
+	<s:hidden name="encodedImageForm.blocks[1]" id="imageBlock1" />
+	<s:hidden name="encodedImageForm.blocks[2]" id="imageBlock2" />
+	<s:hidden name="encodedImageForm.blocks[3]" id="imageBlock3" />
+	<s:hidden name="encodedImageForm.blocks[4]" id="imageBlock4" />
+	<s:hidden name="encodedImageForm.blocks[5]" id="imageBlock5" />
+	<s:hidden name="encodedImageForm.blocks[6]" id="imageBlock6" />
+	<s:hidden name="encodedImageForm.blocks[7]" id="imageBlock7" />
+	<s:hidden name="encodedImageForm.blocks[8]" id="imageBlock8" />
+	<s:hidden name="encodedImageForm.blocks[9]" id="imageBlock9" />
+	<s:hidden name="encodedImageForm.blocks[10]" id="imageBlock10" />
+	<s:hidden name="encodedImageForm.blocks[11]" id="imageBlock11" />
+	<s:hidden name="encodedImageForm.blocks[12]" id="imageBlock12" />
+	<s:hidden name="encodedImageForm.blocks[13]" id="imageBlock13" />
+	<s:hidden name="encodedImageForm.blocks[14]" id="imageBlock14" />
+	<s:hidden name="encodedImageForm.blocks[15]" id="imageBlock15" />
 </s:form>
 <div id="progress-dialog-parent">
 <div id="progress-dialog" class="progress-dialog">
