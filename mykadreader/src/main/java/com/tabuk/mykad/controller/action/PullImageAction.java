@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.ParameterAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ public class PullImageAction implements Action, ParameterAware {
 	private InputStream inputStream;
 	private int contentLength;
 
+	@Autowired
 	public PullImageAction(final CacheService cacheService) {
 		this.cacheService = cacheService;
 	}

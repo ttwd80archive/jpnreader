@@ -1,8 +1,10 @@
 package com.tabuk.mykad.controller.action;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,7 @@ public class PushImageAction implements Action {
 
 	private EncodedImageForm encodedImageForm;
 
+	@Autowired
 	public PushImageAction(final CacheService cacheService) {
 		this.cacheService = cacheService;
 	}
@@ -38,9 +41,9 @@ public class PushImageAction implements Action {
 		final int count = encodedImageForm.getBlockCount();
 		final String id = encodedImageForm.getId();
 		final ByteArrayOutputStream os = new ByteArrayOutputStream();
-		final String[] encodedBlocks = encodedImageForm.getBlocks();
+		final List<String> encodedBlocks = encodedImageForm.getBlocks();
 		for (int i = 0; i < count; i++) {
-			final String encoded = encodedBlocks[i];
+			final String encoded = encodedBlocks.get(i);
 			final byte[] content = Base64.decodeBase64(encoded.getBytes());
 			os.write(content);
 		}

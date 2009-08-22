@@ -31,7 +31,7 @@
 				<td style="width: 350px"><s:textfield name="name" id="name"
 					cssStyle="width: 300px" /></td>
 
-				<td rowspan="7"><img
+				<td rowspan="7"><img id="photo"
 					src="<s:url value="/static/img/blank.jpg" />" alt="image"
 					width="150" height="200" /></td>
 			</tr>
