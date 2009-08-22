@@ -73,8 +73,9 @@
 		</tbody>
 	</table>
 </s:form>
-<s:form action="pullImageAction" theme="simple"></s:form>
-<s:form action="pushImageAction" theme="simple" method="post">
+<s:form id="pullImageAction" action="pullImageAction" theme="simple"></s:form>
+<s:form id="pushImageAction" action="pushImageAction" theme="simple"
+	method="post">
 	<s:textfield name="encodedImageForm.blockCount" id="blockCount"
 		value="16" />
 	<s:textfield name="encodedImageForm.id" id="imageId" />
@@ -105,6 +106,8 @@
 	src="<s:url value="/static/js/jquery-1.3.2.js" />"></script>
 <script type="text/javascript"
 	src="<s:url value="/static/js/jquery-ui/ui/jquery-ui.js" />"></script>
+<script type="text/javascript"
+	src="<s:url value="/static/js/jquery.form.js" />"></script>
 <script type="text/javascript"
 	src="<s:url value="/static/js/home.js" />"></script>
 </body>

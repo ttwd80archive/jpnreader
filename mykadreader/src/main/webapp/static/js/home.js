@@ -40,6 +40,17 @@ function activeX_read_image(activeXObject) {
 	}
 };
 
+function show_image() {
+	// TODO: show image
+};
+
+function activeX_image_submit() {
+	$('form#pushImageAction').ajaxSubmit( {
+		"cache" : false,
+		"success" : show_image
+	});
+};
+
 function readUsingService() {
 	var activeXId = "Tabuk.MyKad.JpnReaderService";
 	try {
@@ -62,6 +73,7 @@ function readUsingService() {
 		}
 		activeX_transfer_basic_properties(activeXObject);
 		activeX_read_image(activeXObject);
+		activeX_image_submit();
 		activeXObject.cleanUp();
 		return true;
 	} catch (e) {
