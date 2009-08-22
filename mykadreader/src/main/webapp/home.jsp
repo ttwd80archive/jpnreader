@@ -76,8 +76,7 @@
 <s:form id="pullImageAction" action="pullImageAction" theme="simple"></s:form>
 <s:form id="pushImageAction" action="pushImageAction" theme="simple"
 	method="post">
-	<s:textfield name="encodedImageForm.blockCount" id="blockCount"
-		value="16" />
+	<s:hidden name="encodedImageForm.blockCount" id="blockCount" value="16" />
 	<s:hidden name="encodedImageForm.id" id="imageId" />
 	<s:hidden name="encodedImageForm.blocks[0]" id="imageBlock0" />
 	<s:hidden name="encodedImageForm.blocks[1]" id="imageBlock1" />

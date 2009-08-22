@@ -97,7 +97,7 @@ function hook_up_read() {
 		jQuery('#progress-dialog').dialog('open');
 		jQuery('#progress-status').text("Reading text info...");
 		if (readUsingService()) {
-			// jQuery('#progress-dialog').dialog('close');
+			jQuery('#progress-dialog').dialog('close');
 		}
 
 	});
