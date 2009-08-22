@@ -1,10 +1,13 @@
 package com.tabuk.mykad.controller.action;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,6 +23,8 @@ public class PushImageAction implements Action {
 	private final CacheService cacheService;
 
 	private EncodedImageForm encodedImageForm;
+
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	public PushImageAction(final CacheService cacheService) {
@@ -38,7 +43,7 @@ public class PushImageAction implements Action {
 		this.encodedImageForm = encodedImageForm;
 	}
 
-	public String execute() throws Exception {
+	private void putInCache() throws IOException {
 		final int count = encodedImageForm.getBlockCount();
 		final String sessionId = ServletActionContext.getRequest().getSession().getId();
 		final String id = sessionId + ":" + encodedImageForm.getId();
@@ -51,7 +56,16 @@ public class PushImageAction implements Action {
 		}
 		final byte[] image = os.toByteArray();
 		cacheService.put(id, image);
-		return SUCCESS;
+	}
+
+	public String execute() throws Exception {
+		try {
+			putInCache();
+			return SUCCESS;
+		} catch (final IOException e) {
+			logger.error(e.toString());
+		}
+		return ERROR;
 	}
 
 }

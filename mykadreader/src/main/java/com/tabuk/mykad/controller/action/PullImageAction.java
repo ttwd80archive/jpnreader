@@ -29,7 +29,7 @@ public class PullImageAction implements Action, ParameterAware {
 
 	public String execute() throws Exception {
 		final String[] ids = parameters.get("id");
-		if (ids.length == 1) {
+		if (ids != null && ids.length == 1) {
 			final String sessionId = ServletActionContext.getRequest().getSession().getId();
 			final String key = sessionId + ":" + ids[0];
 			final byte[] content = (byte[]) cacheService.get(key);
