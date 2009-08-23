@@ -13,7 +13,7 @@
 	rel="stylesheet" />
 </head>
 <body>
-<s:form action="saveOrUpdate" theme="simple">
+<s:form action="contentUploadAction" theme="simple">
 	<table style="width: 600px">
 		<thead>
 			<tr>
