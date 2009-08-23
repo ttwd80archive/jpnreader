@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ======================================================================
+     9 Jul 2009 18:33:41                                                        
+
+     project
+     description
+
+     titi.wangsa.damhore
+     ====================================================================== -->
+<project name="project" default="default">
+	<description>
+            description
+    </description>
+
+	<!-- =================================
+          target: default
+         ================================= -->
+	<target name="default" depends="depends" description="description">
+		<echo>This will re-generate the entity beans.</echo>
+		<echo>If this is what you want to do, try:</echo>
+		<echo>
+		</echo>
+		<echo>ant hibernate-tool</echo>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - -
+          target: depends
+         - - - - - - - - - - - - - - - - - -->
+	<target name="depends">
+	</target>
+
+	<path id="toolslib">
+		<!-- Hibernate Tools -->
+		<path location="${user.home}/.m2/repository/org/hibernate/hibernate-tools/3.2.4.GA/hibernate-tools-3.2.4.GA.jar" />
+		<!-- Hibernate Core -->
+		<path location="${user.home}/.m2/repository/org/hibernate/hibernate-core/3.3.1.GA/hibernate-core-3.3.1.GA.jar" />
+		<!-- Hibernate support -->
+		<path location="${user.home}/.m2/repository/org/freemarker/freemarker/2.3.15/freemarker-2.3.15.jar" />
+		<path location="${user.home}/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar" />
+		<!-- Logging -->
+		<path location="${user.home}/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar" />
+		<path location="${user.home}/.m2/repository/org/slf4j/jcl-over-slf4j/1.5.8/jcl-over-slf4j-1.5.8.jar" />
+		<path location="${user.home}/.m2/repository/ch/qos/logback/logback-core/0.9.17/logback-core-0.9.17.jar" />
+		<path location="${user.home}/.m2/repository/ch/qos/logback/logback-classic/0.9.17/logback-classic-0.9.17.jar" />
+		<!-- JDBC Driver -->
+		<path location="${user.home}/.m2/repository/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar" />
+		<!-- logging configuration -->
+		<path location="./src/main/resources" />
+	</path>
+
+	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="toolslib" />
+
+	<!-- =================================
+          target: hibernate-tool
+         ================================= -->
+	<target name="hibernate-tool" depends="depends" description="description">
+		<hibernatetool>
+			<jdbcconfiguration configurationfile="hibernate.cfg.xml" packagename="com.tabuk.mykad.model.entity" />
+			<hbm2java jdk5="true" ejb3="true" destdir="src/main/java" />
+		</hibernatetool>
+	</target>
+
+</project>
