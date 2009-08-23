@@ -28,8 +28,8 @@
 			</tr>
 			<tr>
 				<td>Name :</td>
-				<td style="width: 350px"><s:textfield name="name" id="name"
-					cssStyle="width: 300px" /></td>
+				<td style="width: 350px"><s:textfield name="student.name"
+					id="name" cssStyle="width: 300px" /></td>
 
 				<td rowspan="7"><img id="photo"
 					src="<s:url value="/static/img/blank.jpg" />" alt="image"
@@ -37,16 +37,16 @@
 			</tr>
 			<tr>
 				<td>IC Number:</td>
-				<td><s:textfield name="id" id="id" /></td>
+				<td><s:textfield name="student.id" id="id" /></td>
 
 			</tr>
 			<tr>
 				<td>Religion:</td>
-				<td><s:textfield name="religion" id="religion" /></td>
+				<td><s:textfield name="student.religion" id="religion" /></td>
 			</tr>
 			<tr>
 				<td>Race:</td>
-				<td><s:textfield name="race" id="race" /></td>
+				<td><s:textfield name="student.race" id="race" /></td>
 
 			</tr>
 			<tr>
@@ -56,13 +56,13 @@
 			</tr>
 			<tr>
 				<td>Gender:</td>
-				<td><s:select name="gender" id="gender"
+				<td><s:select name="student.gender" id="gender"
 					list="#{'P':'Perempuan','L':'Lelaki'}" /></td>
 
 			</tr>
 			<tr>
 				<td>Nationality:</td>
-				<td><s:textfield name="nationality" id="nationality" /></td>
+				<td><s:textfield name="student.citizenship" id="nationality" /></td>
 
 			</tr>
 			<tr>

@@ -16,6 +16,7 @@ import com.tabuk.mykad.model.service.CacheService;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Component("pullImageAction")
+// TODO: refactor to single input for base64 content
 public class PullImageAction implements Action, ParameterAware {
 
 	private final CacheService cacheService;

@@ -19,6 +19,7 @@ import com.tabuk.mykad.model.service.CacheService;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Component("pushImageAction")
+// TODO: refactor to single input for base64 content
 public class PushImageAction implements Action {
 
 	private final CacheService cacheService;
