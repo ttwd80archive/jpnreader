@@ -10,6 +10,8 @@
 		<config>src/main/resources/applicationContext-cache.xml</config>
 		<config>src/main/resources/applicationContext-controller.xml</config>
 		<config>src/main/resources/applicationContext-service.xml</config>
+		<config>src/main/resources/applicationContext-dataSource.xml</config>
+		<config>src/main/resources/applicationContext-hibernate.xml</config>
 	</configs>
 	<configSets>
 		<configSet>
@@ -19,6 +21,9 @@
 			<configs>
 				<config>src/main/resources/applicationContext-cache.xml</config>
 				<config>src/main/resources/applicationContext-controller.xml</config>
+				<config>src/main/resources/applicationContext-dataSource.xml</config>
+				<config>src/main/resources/applicationContext-hibernate.xml</config>
+				<config>src/main/resources/applicationContext-service.xml</config>
 			</configs>
 		</configSet>
 	</configSets>
