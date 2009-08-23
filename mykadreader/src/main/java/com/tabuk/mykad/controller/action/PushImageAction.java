@@ -9,6 +9,7 @@ import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ import com.opensymphony.xwork2.Action;
 import com.tabuk.mykad.controller.form.EncodedImageForm;
 import com.tabuk.mykad.model.service.CacheService;
 
-@Scope("prototype")
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Component("pushImageAction")
 public class PushImageAction implements Action {
 
