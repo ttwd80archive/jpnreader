@@ -361,18 +361,14 @@
 		reserved cache name.
 	-->
 	<defaultCache maxElementsInMemory="10000" eternal="false"
-		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
-		diskSpoolBufferSizeMB="30" maxElementsOnDisk="10000000"
-		diskPersistent="false" diskExpiryThreadIntervalSeconds="120"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="false"
 		memoryStoreEvictionPolicy="LRU" />
 
 
-	<cache name="imageCache" maxElementsInMemory="10" eternal="true"
+	<!--
+	20000 elements * 8kb per element = 160mb 
+	 -->
+	<cache name="imageCache" maxElementsInMemory="20000" eternal="true"
 		overflowToDisk="false" memoryStoreEvictionPolicy="FIFO" />
-
-
-
-
-
 
 </ehcache>
