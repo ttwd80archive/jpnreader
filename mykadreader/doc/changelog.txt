@@ -1,3 +1,9 @@
+version 1.0.1
+2009-08-26
+added hibernate dialect and sql debugging
+
+
 version 1.0.0
 2009-08-26
 all seems to be ok
+
