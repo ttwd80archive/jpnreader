@@ -1,5 +1,5 @@
 package com.tabuk.mykad.model.entity;
-// Generated Aug 23, 2009 6:11:02 PM by Hibernate Tools 3.2.4.GA
+// Generated Aug 24, 2009 8:06:58 AM by Hibernate Tools 3.2.4.GA
 
 
 import javax.persistence.Column;
