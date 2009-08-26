@@ -27,6 +27,16 @@
 				<param name="status">404</param>
 			</result>
 		</action>
+
+		<action name="contentUploadAction" class="contentUploadAction">
+			<result name="success" type="httpheader">
+				<param name="status">200</param>
+			</result>
+			<result name="error" type="httpheader">
+				<param name="status">404</param>
+			</result>
+		</action>
+
 	</package>
 
 </struts>
