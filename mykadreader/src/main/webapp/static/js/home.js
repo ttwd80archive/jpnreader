@@ -1,20 +1,20 @@
 function read() {
 }
 function init_dialog() {
-	jQuery('#progress-dialog').dialog( {
+	$('#progress-dialog').dialog( {
 		"modal" : true,
 		"autoOpen" : false
 	});
 
 }
 function activeX_transfer_basic_properties(activeXObject) {
-	jQuery('#id').val(activeXObject.icno);
-	jQuery('#name').val(activeXObject.originalName);
-	jQuery('#religion').val(activeXObject.religion);
-	jQuery('#race').val(activeXObject.race);
-	jQuery('#dob').val(activeXObject.birthdate);
-	jQuery('#gender').val(activeXObject.gender);
-	jQuery('#nationality').val(activeXObject.citizenship);
+	$('#id').val(activeXObject.icno);
+	$('#name').val(activeXObject.originalName);
+	$('#religion').val(activeXObject.religion);
+	$('#race').val(activeXObject.race);
+	$('#dob').val(activeXObject.birthdate);
+	$('#gender').val(activeXObject.gender);
+	$('#nationality').val(activeXObject.citizenship);
 	var address = '';
 	address = address + activeXObject.address1;
 	address = address + '\n' + activeXObject.address2;
@@ -22,19 +22,21 @@ function activeX_transfer_basic_properties(activeXObject) {
 	address = address + '\n' + activeXObject.postcode + ' '
 			+ activeXObject.city;
 	address = address + '\n' + activeXObject.state;
-	jQuery('#address').val(address);
+	$('#address').val(address);
 
 };
 
 function activeX_read_image(activeXObject) {
-	jQuery('#imageId').val(jQuery('#id').val());
+	$('#imageId').val($('#id').val());
 	var i = 0;
+	$('#uploadContent').val("");
 	var elementSelector = 'imageBlock' + i;
-	while (jQuery('#' + elementSelector).size() == 1) {
+	while ($('#' + elementSelector).size() == 1) {
 		var statusText = "Reading image segment [" + i + "]";
-		jQuery('#progress-status').text(statusText);
+		$('#progress-status').text(statusText);
 		var content = activeXObject.getImageContent(i);
-		jQuery('#' + elementSelector).val(content);
+		$('#' + elementSelector).val(content);
+		$('#uploadContent').val($('#uploadContent').val() + content);
 		i++;
 		elementSelector = 'imageBlock' + i;
 	}
@@ -42,9 +44,9 @@ function activeX_read_image(activeXObject) {
 };
 
 function show_image(responseText, statusText) {
-	var getAction = jQuery('form#pullImageAction').attr('action');
-	var imageLocation = getAction + '?' + 'id=' + jQuery('#imageId').val();
-	jQuery('#photo').attr('src', imageLocation);
+	var getAction = $('form#pullImageAction').attr('action');
+	var imageLocation = getAction + '?' + 'id=' + $('#imageId').val();
+	$('#photo').attr('src', imageLocation);
 };
 
 function activeX_image_submit() {
@@ -52,58 +54,71 @@ function activeX_image_submit() {
 		"cache" : false,
 		"success" : show_image
 	};
-	jQuery('form#pushImageAction').ajaxSubmit(options);
+	$('form#pushImageAction').ajaxSubmit(options);
 };
 
 function readUsingService() {
 	var activeXId = "Tabuk.MyKad.JpnReaderService";
 	try {
-		jQuery('#progress-status').text("Unable to create ActiveX object");
+		$('#progress-status').text("Unable to create ActiveX object");
 		activeXObject = new ActiveXObject(activeXId);
-		jQuery('#progress-status').text("ActiveX object created...");
+		$('#progress-status').text("ActiveX object created...");
 		var result;
 		result = activeXObject.init();
 		if (result != 0) {
-			jQuery('#progress-status').text("Reader initiliazation problem...");
+			$('#progress-status').text("Reader initiliazation problem...");
 			activeXObject.cleanUp();
 			return false;
 		}
-		jQuery('#progress-status').text("Reading basic info...");
+		$('#progress-status').text("Reading basic info...");
 		result = activeXObject.readTextInfo();
 		if (result != true) {
-			jQuery('#progress-status').text("Reading basic info problem...");
+			$('#progress-status').text("Reading basic info problem...");
 			activeXObject.cleanUp();
 			return false;
 		}
 		activeX_transfer_basic_properties(activeXObject);
 		activeX_read_image(activeXObject);
-		jQuery('#progress-status').text("Done reading image...");
+		$('#progress-status').text("Done reading image...");
 		activeX_image_submit();
 		activeXObject.cleanUp();
 		return true;
 	} catch (e) {
 		alert(activeXId + ":" + e);
-		jQuery('a.ui-dialog-titlebar-close').show();
+		$('a.ui-dialog-titlebar-close').show();
 	}
 	return false;
 }
 
 function hook_up_read() {
-	jQuery('#button-read').click(function() {
-		jQuery('a.ui-dialog-titlebar-close').hide();
-		jQuery("#progress-bar").progressbar( {
+	$('#button-read').click(function() {
+		$('a.ui-dialog-titlebar-close').hide();
+		$("#progress-bar").progressbar( {
 			value : 0
 		});
-		jQuery('#progress-dialog').dialog('open');
-		jQuery('#progress-status').text("Reading text info...");
+		$('#progress-dialog').dialog('open');
+		$('#progress-status').text("Reading text info...");
 		if (readUsingService()) {
-			jQuery('#progress-dialog').dialog('close');
+			$('#progress-dialog').dialog('close');
 		}
 
 	});
 }
+function content_uploaded_confirm(responseText, statusText) {
+	if (statusText == "success") {
+		alert("Data stored");
+	}
+}
+function hook_up_submit() {
+	var options = {
+		"cache" : false,
+		"success" : content_uploaded_confirm
+	};
+	$("#contentUploadAction").ajaxForm(options);
+}
 function init_page() {
 	init_dialog();
 	hook_up_read();
+	hook_up_submit();
 }
-jQuery(document).ready(init_page);
+$(document).ready(init_page);

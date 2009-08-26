@@ -13,7 +13,9 @@
 	rel="stylesheet" />
 </head>
 <body>
-<s:form action="contentUploadAction" theme="simple">
+<s:form id="contentUploadAction" action="contentUploadAction"
+	method="post" theme="simple">
+	<s:hidden name="content" id="uploadContent" />
 	<table style="width: 600px">
 		<thead>
 			<tr>
@@ -25,6 +27,10 @@
 				<td colspan="3">
 				<button style="width: 400px" id="button-read" type="button">Read</button>
 				</td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="submit" id="button-submit"
+					style="width: 400px" /></td>
 			</tr>
 			<tr>
 				<td>Name :</td>
@@ -72,6 +78,10 @@
 			</tr>
 		</tbody>
 	</table>
+</s:form>
+<s:form id="imageDecoderAction" action="imageDecoderAction"
+	theme="simple">
+	<s:hidden name="id" />
 </s:form>
 <s:form id="pullImageAction" action="pullImageAction" theme="simple"></s:form>
 <s:form id="pushImageAction" action="pushImageAction" theme="simple"
