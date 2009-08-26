@@ -17,8 +17,19 @@ public class HibernateStudentDao implements StudentDao {
 		this.hibernateTemplate = hibernateTemplate;
 	}
 
-	public void saveOrUpdate(final Student student) {
-		hibernateTemplate.saveOrUpdate(student);
+	@Override
+	public void save(final Student student) {
+		hibernateTemplate.save(student);
+	}
+
+	@Override
+	public void update(final Student student) {
+		hibernateTemplate.merge(student);
+	}
+
+	@Override
+	public Student get(final String id) {
+		return (Student) hibernateTemplate.get(Student.class, id);
 	}
 
 }

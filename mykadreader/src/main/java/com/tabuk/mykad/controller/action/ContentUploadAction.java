@@ -52,10 +52,16 @@ public class ContentUploadAction implements Action {
 	public String execute() throws Exception {
 		try {
 			student.setDob(dob);
+			final String id = student.getId();
 			final StudentImage studentImage = new StudentImage();
-			studentImage.setId(student.getId());
+			studentImage.setId(id);
 			studentImage.setContent(Base64.decodeBase64(content.getBytes()));
-			myKadReaderService.saveOrUpdateStudent(student, studentImage);
+			if (myKadReaderService.getStudent(id) == null) {
+				myKadReaderService.insertStudent(student, studentImage);
+
+			} else {
+				myKadReaderService.updateStudent(student, studentImage);
+			}
 			return SUCCESS;
 		} catch (final DataAccessException e) {
 			logger.error(e.toString());

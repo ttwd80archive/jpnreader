@@ -5,5 +5,9 @@ import com.tabuk.mykad.model.entity.StudentImage;
 
 public interface MyKadReaderService {
 
-	void saveOrUpdateStudent(Student student, StudentImage studentImage);
+	void insertStudent(Student student, StudentImage studentImage);
+
+	void updateStudent(Student student, StudentImage studentImage);
+
+	Student getStudent(String id);
 }

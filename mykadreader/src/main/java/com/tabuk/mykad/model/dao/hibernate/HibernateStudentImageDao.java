@@ -16,8 +16,14 @@ public class HibernateStudentImageDao implements StudentImageDao {
 		this.hibernateTemplate = hibernateTemplate;
 	}
 
-	public void saveOrUpdate(final StudentImage studentImage) {
-		hibernateTemplate.saveOrUpdate(studentImage);
+	@Override
+	public void update(final StudentImage studentImage) {
+		hibernateTemplate.merge(studentImage);
+	}
+
+	@Override
+	public void save(final StudentImage studentImage) {
+		hibernateTemplate.save(studentImage);
 	}
 
 }
