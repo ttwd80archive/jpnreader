@@ -249,13 +249,15 @@ Public Class Form1
     End Sub
     Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal gender As String, ByVal pictureContent As Byte())
         'Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
-        Dim connectionString As String = "Dsn=mysql-reg-system"
+        'Dim connectionString As String = "Dsn=mysql-reg-system"
+        Dim connectionString As String = "Dsn=oracle-xe;dbq=localhost:1521/XE;Uid=MYKAD;Pwd=janganhilang;"
 
-        Dim sql As String = "insert into student (id, name, citizenship, race, religion, gender) values (?, ?, ?, ?, ?, ?)"
-        Dim sqlImage As String = "insert into student_image (id, content) values (?, ?)"
+        Dim sql As String = "insert into STUDENT (id, name, citizenship, race, religion, gender) values (?, ?, ?, ?, ?, ?)"
+        Dim sqlImage As String = "insert into STUDENT_IMAGE (id, content) values (?, ?)"
         Dim c As Odbc.OdbcConnection = New Odbc.OdbcConnection(connectionString)
 
         Dim cmd As Odbc.OdbcCommand = New Odbc.OdbcCommand(sql, c)
+
         cmd.Parameters.Add(New Odbc.OdbcParameter("id", Odbc.OdbcType.NChar, 12)).Value = id
         cmd.Parameters.Add(New Odbc.OdbcParameter("name", Odbc.OdbcType.NVarChar)).Value = name
         cmd.Parameters.Add(New Odbc.OdbcParameter("citizenship", Odbc.OdbcType.NVarChar)).Value = citizenship
@@ -266,7 +268,6 @@ Public Class Form1
         Dim cmdImage As Odbc.OdbcCommand = New Odbc.OdbcCommand(sqlImage, c)
         cmdImage.Parameters.Add(New Odbc.OdbcParameter("id", Odbc.OdbcType.NChar, 12)).Value = id
         cmdImage.Parameters.Add(New Odbc.OdbcParameter("content", Odbc.OdbcType.VarBinary, 4000)).Value = pictureContent
-
         Try
             c.Open()
             cmd.ExecuteNonQuery()
@@ -274,6 +275,8 @@ Public Class Form1
         Catch e As Exception
             MsgBox("Duplicate" + e.ToString())
         Finally
+            cmd.Dispose()
+            cmdImage.Dispose()
             c.Close()
         End Try
         MsgBox("Done")
@@ -365,14 +368,14 @@ Public Class Form1
             End If
             Dim blockContent As Byte() = readSegment(2, contentLength, blockSize)
             readCount = readCount + 1
-            MsgBox("readCount = " + CStr(readCount) + "readSegment contentLength: " + CStr(contentLength) + "/" + CStr(blockSize))
+            'MsgBox("readCount = " + CStr(readCount) + "readSegment contentLength: " + CStr(contentLength) + "/" + CStr(blockSize))
             If (blockContent Is Nothing) Then
                 Return Nothing
             End If
             Array.Copy(blockContent, 0, content, contentLength, blockSize)
             contentLength = contentLength + blockContent.Length()
         End While
-        MsgBox("Read Count : " + CStr(readCount))
+        'MsgBox("Read Count : " + CStr(readCount))
         Dim imageContent(IMAGE_LENGTH - 1) As Byte
         Array.Copy(content, IMAGE_OFFSET, imageContent, 0, IMAGE_LENGTH)
         Return imageContent
