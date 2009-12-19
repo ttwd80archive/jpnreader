@@ -116,6 +116,1043 @@ Public Class Form1
     Private imageLoadingProgress As Integer
     Private hContext As UInteger
 
+    Private Function decodeCitizenship(ByVal c As String) As String
+        If c = "WARGANEGARA" Then
+            Return "W"
+        Else
+            Return "B"
+        End If
+    End Function
+    Private Function decodeReligion(ByVal r As String) As String
+        Return r.Substring(0, 1)
+    End Function
+    Private Function decodeRace(ByVal r As String) As String
+        If r = "LAIN - LAIN" Then
+            Return "0000"
+        End If
+        If r = "SRI LANKA" Then
+            Return "0600"
+        End If
+        If r = "BUGIS" Then
+            Return "0101"
+        End If
+        If r = "BANJAR" Then
+            Return "0103"
+        End If
+        If r = "JAWA" Then
+            Return "0104"
+        End If
+        If r = "BAJAU" Then
+            Return "0801"
+        End If
+        If r = "DUSUN" Then
+            Return "0802"
+        End If
+        If r = "KADAZAN" Then
+            Return "0803"
+        End If
+        If r = "MURUT" Then
+            Return "0804"
+        End If
+        If r = "SULUK" Then
+            Return "0806"
+        End If
+        If r = "BISAYA" Then
+            Return "0902"
+        End If
+        If r = "BRUNEI" Then
+            Return "0904"
+        End If
+        If r = "KEDAYAN" Then
+            Return "0909"
+        End If
+        If r = "MELANAU" Then
+            Return "0913"
+        End If
+        If r = "SUNGAI" Then
+            Return "0922"
+        End If
+        If r = "TAGAL" Then
+            Return "0926"
+        End If
+        If r = "MELANAU" Then
+            Return "1002"
+        End If
+        If r = "KAYAN" Then
+            Return "1006"
+        End If
+        If r = "KENYAH" Then
+            Return "1007"
+        End If
+        If r = "KELABIT" Then
+            Return "1009"
+        End If
+        If r = "DUSUN" Then
+            Return "1111"
+        End If
+        If r = "KEMBOJA" Then
+            Return "1480"
+        End If
+        If r = "LAIN-LAIN" Then
+            Return "1500"
+        End If
+        If r = "MELAYU INDONESIA" Then
+            Return "D"
+        End If
+        If r = "KADAZAN" Then
+            Return "15"
+        End If
+        If r = "KADAYUN" Then
+            Return "16"
+        End If
+        If r = "LOH DAYUH" Then
+            Return "17"
+        End If
+        If r = "MELANAU" Then
+            Return "18"
+        End If
+        If r = "MELAYU" Then
+            Return "0100"
+        End If
+        If r = "MURUT" Then
+            Return "20"
+        End If
+        If r = "ORANG ASLI (SEMENANJUNG)" Then
+            Return "1200"
+        End If
+        If r = "PAKISTAN" Then
+            Return "22"
+        End If
+        If r = "SINO KADAZAN" Then
+            Return "23"
+        End If
+        If r = "SULUK" Then
+            Return "24"
+        End If
+        If r = "SUNGAI" Then
+            Return "25"
+        End If
+        If r = "ZAMBOANGA" Then
+            Return "26"
+        End If
+        If r = "KENYAH" Then
+            Return "27"
+        End If
+        If r = "KAYAN" Then
+            Return "28"
+        End If
+        If r = "BISAYAH" Then
+            Return "29"
+        End If
+        If r = "INDIA MUSLIM" Then
+            Return "0307"
+        End If
+        If r = "LAIN-LAIN" Then
+            Return "1400"
+        End If
+        If r = "KEMBOJA" Then
+            Return "B"
+        End If
+        If r = "THAILAND/SIAM" Then
+            Return "S"
+        End If
+        If r = "BUMIPUTERA SARAWAK" Then
+            Return "1000"
+        End If
+        If r = "BUMIPUTERA SABAH" Then
+            Return "0800"
+        End If
+        If r = "BADANG" Then
+            Return "1110"
+        End If
+        If r = "BALAU" Then
+            Return "1105"
+        End If
+        If r = "BATANG AI" Then
+            Return "1106"
+        End If
+        If r = "BATU ELAH" Then
+            Return "1107"
+        End If
+        If r = "BELOT" Then
+            Return "1103"
+        End If
+        If r = "BERAWAN" Then
+            Return "1102"
+        End If
+        If r = "BIDAYUH/LAND DAYAK" Then
+            Return "1005"
+        End If
+        If r = "BINADAN" Then
+            Return "0901"
+        End If
+        If r = "BINTULU" Then
+            Return "1109"
+        End If
+        If r = "BISAYA" Then
+            Return "1101"
+        End If
+        If r = "BOLONGAN" Then
+            Return "0930"
+        End If
+        If r = "BONGOL" Then
+            Return "0903"
+        End If
+        If r = "BUKIT" Then
+            Return "1104"
+        End If
+        If r = "BUKITAN" Then
+            Return "1108"
+        End If
+        If r = "BUTON" Then
+            Return "0931"
+        End If
+        If r = "COCOS" Then
+            Return "0928"
+        End If
+        If r = "DUMPAS" Then
+            Return "0905"
+        End If
+        If r = "IBAN/SEA DAYAK" Then
+            Return "1004"
+        End If
+        If r = "IDAHAN" Then
+            Return "0907"
+        End If
+        If r = "INDONESIA" Then
+            Return "0700"
+        End If
+        If r = "IRRANUN" Then
+            Return "0906"
+        End If
+        If r = "JAGOI" Then
+            Return "1112"
+        End If
+        If r = "KAJAMAN" Then
+            Return "1115"
+        End If
+        If r = "KAJANG" Then
+            Return "1114"
+        End If
+        If r = "KANOWIT" Then
+            Return "1116"
+        End If
+        If r = "KEDAYAN" Then
+            Return "1003"
+        End If
+        If r = "KHMER (KEMBOJA)" Then
+            Return "1308"
+        End If
+        If r = "KIMARAGANG" Then
+            Return "0929"
+        End If
+        If r = "KIPUT" Then
+            Return "1113"
+        End If
+        If r = "KWIJAU" Then
+            Return "0908"
+        End If
+        If r = "LAHANAN" Then
+            Return "1119"
+        End If
+        If r = "LASAU" Then
+            Return "0912"
+        End If
+        If r = "LEMANAK" Then
+            Return "1118"
+        End If
+        If r = "LINGKABAU" Then
+            Return "0910"
+        End If
+        If r = "LIRONG" Then
+            Return "1117"
+        End If
+        If r = "LUNDAYEH" Then
+            Return "0911"
+        End If
+        If r = "LUSUM/LUGUM" Then
+            Return "1120"
+        End If
+        If r = "MALOH" Then
+            Return "1122"
+        End If
+        If r = "MANGKAK" Then
+            Return "0914"
+        End If
+        If r = "MATAGANG" Then
+            Return "0915"
+        End If
+        If r = "MATU" Then
+            Return "1121"
+        End If
+        If r = "MELAING" Then
+            Return "1124"
+        End If
+        If r = "MELAYU SARAWAK" Then
+            Return "1001"
+        End If
+        If r = "MELIKIN" Then
+            Return "1123"
+        End If
+        If r = "MENONDO" Then
+            Return "1126"
+        End If
+        If r = "MINOKOK" Then
+            Return "0916"
+        End If
+        If r = "MOMOGUN" Then
+            Return "0918"
+        End If
+        If r = "MURIK" Then
+            Return "1125"
+        End If
+        If r = "MURUT/LUN BAWANG" Then
+            Return "1008"
+        End If
+        If r = "NYAMOK" Then
+            Return "1127"
+        End If
+        If r = "PAITAN" Then
+            Return "0919"
+        End If
+        If r = "PENAN/PUNAN" Then
+            Return "1010"
+        End If
+        If r = "RAMANAU" Then
+            Return "0920"
+        End If
+        If r = "RUNGUS" Then
+            Return "0921"
+        End If
+        If r = "SABAH" Then
+            Return "1137"
+        End If
+        If r = "SARIBAS" Then
+            Return "1134"
+        End If
+        If r = "SEBOB" Then
+            Return "1128"
+        End If
+        If r = "SEBUYAU" Then
+            Return "1135"
+        End If
+        If r = "SEDUAN" Then
+            Return "1129"
+        End If
+        If r = "SEGALANG" Then
+            Return "1131"
+        End If
+        If r = "SEKAPAN" Then
+            Return "1130"
+        End If
+        If r = "SELAKAN" Then
+            Return "1138"
+        End If
+        If r = "SELAKAU" Then
+            Return "1139"
+        End If
+        If r = "SIAMESE (THAILAND)" Then
+            Return "1312"
+        End If
+        If r = "SIAN" Then
+            Return "1132"
+        End If
+        If r = "SINO-NATIVE" Then
+            Return "0805"
+        End If
+        If r = "SINULAHAN" Then
+            Return "0924"
+        End If
+        If r = "SIPENG" Then
+            Return "1133"
+        End If
+        If r = "SKRANG" Then
+            Return "1136"
+        End If
+        If r = "SONSONGAN" Then
+            Return "0923"
+        End If
+        If r = "TABUN" Then
+            Return "1141"
+        End If
+        If r = "TAGAL" Then
+            Return "1140"
+        End If
+        If r = "TAK LOREK" Then
+            Return "XXXX"
+        End If
+        If r = "TAMBANUO" Then
+            Return "0925"
+        End If
+        If r = "TANJONG" Then
+            Return "1143"
+        End If
+        If r = "TATAU" Then
+            Return "1144"
+        End If
+        If r = "TAUP" Then
+            Return "1145"
+        End If
+        If r = "TINAGAS" Then
+            Return "0927"
+        End If
+        If r = "TUTONG" Then
+            Return "1142"
+        End If
+        If r = "UKIT" Then
+            Return "1146"
+        End If
+        If r = "ULU AI" Then
+            Return "1148"
+        End If
+        If r = "UNKOP" Then
+            Return "1147"
+        End If
+        If r = "AFGHAN" Then
+            Return "1315"
+        End If
+        If r = "ALBANIA" Then
+            Return "1407"
+        End If
+        If r = "ALGERIA" Then
+            Return "1402"
+        End If
+        If r = "ANGOLA" Then
+            Return "1405"
+        End If
+        If r = "ANTIGUA-BARBUDA" Then
+            Return "1403"
+        End If
+        If r = "ARGENTINA" Then
+            Return "1406"
+        End If
+        If r = "AUSTRALIA" Then
+            Return "1404"
+        End If
+        If r = "AUSTRIA" Then
+            Return "1408"
+        End If
+        If r = "BAHAMAS" Then
+            Return "1413"
+        End If
+        If r = "BAHRAIN" Then
+            Return "1412"
+        End If
+        If r = "BANGLADESHI" Then
+            Return "0400"
+        End If
+        If r = "BARABADOS" Then
+            Return "1414"
+        End If
+        If r = "BELARUS" Then
+            Return "1425"
+        End If
+        If r = "BELGIUM" Then
+            Return "1424"
+        End If
+        If r = "BELIZE" Then
+            Return "1415"
+        End If
+        If r = "BENIN" Then
+            Return "1418"
+        End If
+        If r = "BHUTAN" Then
+            Return "1419"
+        End If
+        If r = "BOLIVIA" Then
+            Return "1420"
+        End If
+        If r = "BOSNIA-HERZEGOVINA" Then
+            Return "1427"
+        End If
+        If r = "BOTSWANA" Then
+            Return "1416"
+        End If
+        If r = "BOYAN" Then
+            Return "0102"
+        End If
+        If r = "BRAZIL" Then
+            Return "1421"
+        End If
+        If r = "BRITISH" Then
+            Return "1401"
+        End If
+        If r = "BULGARIA" Then
+            Return "1423"
+        End If
+        If r = "BURMESE" Then
+            Return "1302"
+        End If
+        If r = "BURUNDI" Then
+            Return "1422"
+        End If
+        If r = "CAICASIAN" Then
+            Return "1316"
+        End If
+        If r = "CAMEROON" Then
+            Return "1428"
+        End If
+        If r = "CANADA" Then
+            Return "1430"
+        End If
+        If r = "CANTONESE" Then
+            Return "0201"
+        End If
+        If r = "CAPE VERDE" Then
+            Return "1432"
+        End If
+        If r = "CHAD" Then
+            Return "1429"
+        End If
+        If r = "CHILE" Then
+            Return "1434"
+        End If
+        If r = "COLOMBIA" Then
+            Return "1435"
+        End If
+        If r = "COMOROS" Then
+            Return "1436"
+        End If
+        If r = "COSTARICA" Then
+            Return "1437"
+        End If
+        If r = "CROTIA" Then
+            Return "1433"
+        End If
+        If r = "CUBA" Then
+            Return "1438"
+        End If
+        If r = "CYPRUS" Then
+            Return "1431"
+        End If
+        If r = "DAHOMEY" Then
+            Return "1441"
+        End If
+        If r = "DENMARK" Then
+            Return "1442"
+        End If
+        If r = "DJBOUTI" Then
+            Return "1439"
+        End If
+        If r = "DOMINICA" Then
+            Return "1440"
+        End If
+        If r = "EL SALVADOR" Then
+            Return "1444"
+        End If
+        If r = "EQUADOR" Then
+            Return "1443"
+        End If
+        If r = "EQUATORIAL GUINEA" Then
+            Return "1445"
+        End If
+        If r = "ETOPIA" Then
+            Return "1446"
+        End If
+        If r = "EURASIAN" Then
+            Return "1303"
+        End If
+        If r = "FIJIAN" Then
+            Return "1304"
+        End If
+        If r = "FILIPINOS" Then
+            Return "1305"
+        End If
+        If r = "FINLAND" Then
+            Return "1449"
+        End If
+        If r = "FOOCHOW" Then
+            Return "0202"
+        End If
+        If r = "FRANCE" Then
+            Return "1448"
+        End If
+        If r = "GABON" Then
+            Return "1451"
+        End If
+        If r = "GAMBIA" Then
+            Return "1452"
+        End If
+        If r = "GERMANY" Then
+            Return "1460"
+        End If
+        If r = "GHANA" Then
+            Return "1455"
+        End If
+        If r = "GREECE" Then
+            Return "1459"
+        End If
+        If r = "GRENADA" Then
+            Return "1456"
+        End If
+        If r = "GUATEMALA" Then
+            Return "1458"
+        End If
+        If r = "GUINEA" Then
+            Return "1453"
+        End If
+        If r = "GUINEA-BISSAU" Then
+            Return "1454"
+        End If
+        If r = "GURKHA" Then
+            Return "1306"
+        End If
+        If r = "GUYANA" Then
+            Return "1457"
+        End If
+        If r = "HAINANESE" Then
+            Return "0203"
+        End If
+        If r = "HAITI" Then
+            Return "1461"
+        End If
+        If r = "HENGHUA" Then
+            Return "0204"
+        End If
+        If r = "HOKCHIA" Then
+            Return "0205"
+        End If
+        If r = "HOKCHIU" Then
+            Return "0206"
+        End If
+        If r = "HOKKIEN" Then
+            Return "0207"
+        End If
+        If r = "HONDURAS" Then
+            Return "1462"
+        End If
+        If r = "HONG KONG" Then
+            Return "1464"
+        End If
+        If r = "HUNGARY" Then
+            Return "1463"
+        End If
+        If r = "ICELAND" Then
+            Return "1471"
+        End If
+        If r = "IRANIAN" Then
+            Return "1314"
+        End If
+        If r = "IRAQ" Then
+            Return "1466"
+        End If
+        If r = "IRELAND" Then
+            Return "1469"
+        End If
+        If r = "ISRAEL" Then
+            Return "1468"
+        End If
+        If r = "ITALY" Then
+            Return "1470"
+        End If
+        If r = "IVORY COAST" Then
+            Return "1467"
+        End If
+        If r = "JAKUN" Then
+            Return "1201"
+        End If
+        If r = "JAMAICA" Then
+            Return "1473"
+        End If
+        If r = "JAPANESE" Then
+            Return "1307"
+        End If
+        If r = "JAWI PEKAN" Then
+            Return "0105"
+        End If
+        If r = "JORDAN" Then
+            Return "1472"
+        End If
+        If r = "KENYA" Then
+            Return "1476"
+        End If
+        If r = "KHEK(HAIKA)" Then
+            Return "0208"
+        End If
+        If r = "KIRIBATI" Then
+            Return "1477"
+        End If
+        If r = "KOREA(UTARA)" Then
+            Return "1479"
+        End If
+        If r = "KOREAN" Then
+            Return "1309"
+        End If
+        If r = "KUWAIT" Then
+            Return "1475"
+        End If
+        If r = "KWONGSAI" Then
+            Return "0209"
+        End If
+        If r = "KYRGYZ" Then
+            Return "1317"
+        End If
+        If r = "LAIN-LAIN ASIA" Then
+            Return "1300"
+        End If
+        If r = "LAOS" Then
+            Return "1484"
+        End If
+        If r = "LEBANON" Then
+            Return "1481"
+        End If
+        If r = "LESOTHO" Then
+            Return "1483"
+        End If
+        If r = "LIBERIA" Then
+            Return "1485"
+        End If
+        If r = "LIBYA" Then
+            Return "1482"
+        End If
+        If r = "LUXEMBOURG" Then
+            Return "1486"
+        End If
+        If r = "MACEDONIA" Then
+            Return "1561"
+        End If
+        If r = "MADAGASCAR" Then
+            Return "1493"
+        End If
+        If r = "MALABARI" Then
+            Return "0306"
+        End If
+        If r = "ARAB" Then
+            Return "1301"
+        End If
+        If r = "BAJAU" Then
+            Return "2"
+        End If
+        If r = "BANJAR" Then
+            Return "3"
+        End If
+        If r = "MALAWI" Then
+            Return "1491"
+        End If
+        If r = "MALAY ALI" Then
+            Return "0301"
+        End If
+        If r = "MALDIVES" Then
+            Return "1488"
+        End If
+        If r = "MALI" Then
+            Return "1487"
+        End If
+        If r = "MALTESE" Then
+            Return "1310"
+        End If
+        If r = "MAURITANIA" Then
+            Return "1489"
+        End If
+        If r = "MAURITIUS" Then
+            Return "1494"
+        End If
+        If r = "MELAYU SABAH" Then
+            Return "0917"
+        End If
+        If r = "MELAYU SRI LANGKA" Then
+            Return "0602"
+        End If
+        If r = "MESIR" Then
+            Return "1498"
+        End If
+        If r = "MEXICO" Then
+            Return "1495"
+        End If
+        If r = "MIDDLE AFRICA" Then
+            Return "1410"
+        End If
+        If r = "MINANGKABAU" Then
+            Return "0106"
+        End If
+        If r = "MONGOLIA" Then
+            Return "1497"
+        End If
+        If r = "MOROCCO" Then
+            Return "1490"
+        End If
+        If r = "MOZAMBIQUE" Then
+            Return "1496"
+        End If
+        If r = "MYANMAR" Then
+            Return "1499"
+        End If
+        If r = "NAMIBIA" Then
+            Return "1501"
+        End If
+        If r = "NAURU" Then
+            Return "1502"
+        End If
+        If r = "NEGRITO" Then
+            Return "1202"
+        End If
+        If r = "NEPAL" Then
+            Return "1505"
+        End If
+        If r = "NETHERLAND" Then
+            Return "1507"
+        End If
+        If r = "NEW ZEALAND" Then
+            Return "1503"
+        End If
+        If r = "NICARAGUA" Then
+            Return "1506"
+        End If
+        If r = "NIGERIA" Then
+            Return "1504"
+        End If
+        If r = "NORWAY" Then
+            Return "1508"
+        End If
+        If r = "OMAN" Then
+            Return "1509"
+        End If
+        If r = "PAKISTANI" Then
+            Return "0500"
+        End If
+        If r = "PALESTIN" Then
+            Return "1511"
+        End If
+        If r = "PANAMA" Then
+            Return "1512"
+        End If
+        If r = "PAPUA NEW GUINEA" Then
+            Return "1510"
+        End If
+        If r = "PARAGUAY" Then
+            Return "1513"
+        End If
+        If r = "PENAN" Then
+            Return "1208"
+        End If
+        If r = "PERU" Then
+            Return "1514"
+        End If
+        If r = "POLAND" Then
+            Return "1515"
+        End If
+        If r = "PORTUGESE" Then
+            Return "1311"
+        End If
+        If r = "PUNJABI" Then
+            Return "0302"
+        End If
+        If r = "QATAR" Then
+            Return "1517"
+        End If
+        If r = "REPUBLIC CZECH" Then
+            Return "1520"
+        End If
+        If r = "REPUBLIC SLOVAKIA" Then
+            Return "1521"
+        End If
+        If r = "ROMANIA" Then
+            Return "1518"
+        End If
+        If r = "RUSSIA" Then
+            Return "1553"
+        End If
+        If r = "RWANDA" Then
+            Return "1519"
+        End If
+        If r = "SAKAI" Then
+            Return "1203"
+        End If
+        If r = "SAMAO BARAT" Then
+            Return "1536"
+        End If
+        If r = "SAMOA" Then
+            Return "1533"
+        End If
+        If r = "SAO TOME & PRINCIPE" Then
+            Return "1534"
+        End If
+        If r = "SEMAI" Then
+            Return "1204"
+        End If
+        If r = "SEMALAI" Then
+            Return "1205"
+        End If
+        If r = "SENEGAL" Then
+            Return "1522"
+        End If
+        If r = "SENOI" Then
+            Return "1207"
+        End If
+        If r = "SIERRA LEONE" Then
+            Return "1523"
+        End If
+        If r = "SIKH" Then
+            Return "0303"
+        End If
+        If r = "SINHALESE" Then
+            Return "0603"
+        End If
+        If r = "SOLOMON ISLAND" Then
+            Return "1530"
+        End If
+        If r = "SOMALIA" Then
+            Return "1524"
+        End If
+        If r = "SOUTH AFRICA" Then
+            Return "1411"
+        End If
+        If r = "SPAIN" Then
+            Return "1538"
+        End If
+        If r = "SRI LANKA" Then
+            Return "1531"
+        End If
+        If r = "ST VINCENT" Then
+            Return "1528"
+        End If
+        If r = "ST.LUCIA" Then
+            Return "1527"
+        End If
+        If r = "SUDAN" Then
+            Return "1525"
+        End If
+        If r = "SURINAM" Then
+            Return "1535"
+        End If
+        If r = "SWAZILAND" Then
+            Return "1532"
+        End If
+        If r = "SWEDEN" Then
+            Return "1537"
+        End If
+        If r = "SWITZERLAND" Then
+            Return "1539"
+        End If
+        If r = "SYCHELLES" Then
+            Return "1529 "
+        End If
+        If r = "SYRIA" Then
+            Return "1526"
+        End If
+        If r = "TAIWAN" Then
+            Return "1548"
+        End If
+        If r = "TAMIL" Then
+            Return "0304"
+        End If
+        If r = "TAMIL SRI LANGKA" Then
+            Return "0601"
+        End If
+        If r = "TANZANIA" Then
+            Return "1542"
+        End If
+        If r = "TELEGU" Then
+            Return "0305"
+        End If
+        If r = "TEMIAR" Then
+            Return "1206"
+        End If
+        If r = "TEOCHEW" Then
+            Return "0210"
+        End If
+        If r = "TIADA MAKLUMAT" Then
+            Return "9999"
+        End If
+        If r = "TIDUNG" Then
+            Return "0701"
+        End If
+        If r = "TOGO" Then
+            Return "1547"
+        End If
+        If r = "TONGA" Then
+            Return "1543"
+        End If
+        If r = "TRINIDAD&TOBACO" Then
+            Return "1544"
+        End If
+        If r = "TUNISIA" Then
+            Return "1540"
+        End If
+        If r = "TURKEY" Then
+            Return "1541"
+        End If
+        If r = "TUVALI" Then
+            Return "1545"
+        End If
+        If r = "BUGIS" Then
+            Return "4"
+        End If
+        If r = "BRUNEI" Then
+            Return "5"
+        End If
+        If r = "CINA" Then
+            Return "0200"
+        End If
+        If r = "BIDAYUH" Then
+            Return "7"
+        End If
+        If r = "KELABIT" Then
+            Return "8"
+        End If
+        If r = "DUSUN" Then
+            Return "9"
+        End If
+        If r = "JAWA" Then
+            Return "10"
+        End If
+        If r = "IBAN (DAYAK LAUT)" Then
+            Return "11"
+        End If
+        If r = "ILLANUM" Then
+            Return "12"
+        End If
+        If r = "INDIA" Then
+            Return "0300"
+        End If
+        If r = "UBIAN" Then
+            Return "1318"
+        End If
+        If r = "UGANDA" Then
+            Return "1549"
+        End If
+        If r = "UKRAINE" Then
+            Return "1554"
+        End If
+        If r = "UNITED ARAB EMIRATES" Then
+            Return "1550"
+        End If
+        If r = "UNITED STATES" Then
+            Return "1555"
+        End If
+        If r = "UPPER VOLTA" Then
+            Return "1551"
+        End If
+        If r = "URUGUAY" Then
+            Return "1552"
+        End If
+        If r = "VANUATU" Then
+            Return "1556"
+        End If
+        If r = "VENEZUELA" Then
+            Return "1557"
+        End If
+        If r = "VIETNAMESE" Then
+            Return "1313"
+        End If
+        If r = "YEMEN" Then
+            Return "1559"
+        End If
+        If r = "YUGOSLAVIA" Then
+            Return "1560"
+        End If
+        If r = "ZAIRE" Then
+            Return "1562"
+        End If
+        If r = "ZAMBIA" Then
+            Return "1563"
+        End If
+        If r = "ZIMBABWE" Then
+            Return "1564"
+        End If
+        Return ""
+    End Function
+
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Button2_Click(sender, e)
         Dim result As Integer
@@ -191,13 +1228,13 @@ Public Class Form1
         Dim name As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H3, &H96).Trim()
         Dim id As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H111, &HD).Trim()
         Dim gender As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H11E, 1).Trim()
+        Dim icOld As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H11F, &H8).Trim()
         Dim birthdate As String = bcdDateToString(birthdateByte)
         Dim birthplace As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H12B, &H19).Trim()
         Dim issuedDate As String = bcdDateToString(dateIssuedByte)
         Dim citizenship As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H148, &H12).Trim()
-        Dim race As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H15A, &H19).Trim()
-        Dim religion As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H173, &HB).Trim()
-
+        Dim race As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H15A, &H19).Trim().ToUpper
+        Dim religion As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H173, &HB).Trim().ToUpper
         textId.Text = id
         textName.Text = name
         textReligion.Text = religion
@@ -230,53 +1267,50 @@ Public Class Form1
         textAddress.Text = address
 
         Dim pictureContent() As Byte = Nothing
-        ToolStripStatusLabel1.Text = "Reading Image..."
-        Me.Refresh()
-        pictureContent = loadImage()
-        ToolStripStatusLabel1.Text = ""
-        If (pictureContent Is Nothing) Then
-            MsgBox("Error: Empty Content Image")
-            cleanUp()
-            Return
-        End If
+        'ToolStripStatusLabel1.Text = "Reading Image..."
+        'Me.Refresh()
+        'pictureContent = loadImage()
+        'ToolStripStatusLabel1.Text = ""
+        'If (pictureContent Is Nothing) Then
+        'MsgBox("Error: Empty Content Image")
+        'cleanUp()
+        'Return
+        'End If
 
-        stopwatch.Stop()
-        insertIntoDb(id, name, citizenship, race, religion, gender, pictureContent)
+        insertIntoDb(id, name, decodeCitizenship(citizenship), decodeRace(race), decodeReligion(religion), gender, birthdate, icOld)
 
     End Sub
     Private Sub cleanUp()
         SCardReleaseContext(hContext)
     End Sub
-    Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal gender As String, ByVal pictureContent As Byte())
+    Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal gender As String, ByVal dob As String, ByRef icOld As String)
         'Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
         'Dim connectionString As String = "Dsn=mysql-reg-system"
-        Dim connectionString As String = "Dsn=oracle-xe;dbq=localhost:1521/XE;Uid=MYKAD;Pwd=janganhilang;"
+        Dim connectionString As String = "Dsn=INTEGRASI_INTAKE;Uid=MYKAD;Pwd=janganhilang"
 
-        Dim sql As String = "insert into STUDENT (id, name, citizenship, race, religion, gender) values (?, ?, ?, ?, ?, ?)"
-        Dim sqlImage As String = "insert into STUDENT_IMAGE (id, content) values (?, ?)"
+        Dim sql As String = "insert into INTEGRASI_MYKAD (ICNEW, ICOLD, FULLNAME, GENDER, RELIGIONCODE, CITIZENSHIPCODE, RACECODE, DOB) values (?, ?, ?, ?, ?, ?, ?, ?)"
         Dim c As Odbc.OdbcConnection = New Odbc.OdbcConnection(connectionString)
 
         Dim cmd As Odbc.OdbcCommand = New Odbc.OdbcCommand(sql, c)
 
-        cmd.Parameters.Add(New Odbc.OdbcParameter("id", Odbc.OdbcType.NChar, 12)).Value = id
-        cmd.Parameters.Add(New Odbc.OdbcParameter("name", Odbc.OdbcType.NVarChar)).Value = name
-        cmd.Parameters.Add(New Odbc.OdbcParameter("citizenship", Odbc.OdbcType.NVarChar)).Value = citizenship
-        cmd.Parameters.Add(New Odbc.OdbcParameter("race", Odbc.OdbcType.NVarChar)).Value = race
-        cmd.Parameters.Add(New Odbc.OdbcParameter("religion", Odbc.OdbcType.NVarChar)).Value = religion
-        cmd.Parameters.Add(New Odbc.OdbcParameter("gender", Odbc.OdbcType.NChar, 1)).Value = gender
+        cmd.Parameters.Add(New Odbc.OdbcParameter("ICNEW", Odbc.OdbcType.VarChar, 13)).Value = id
+        cmd.Parameters.Add(New Odbc.OdbcParameter("ICOLD", Odbc.OdbcType.VarChar, 8)).Value = icOld
+        cmd.Parameters.Add(New Odbc.OdbcParameter("FULLNAME", Odbc.OdbcType.VarChar, 150)).Value = name
+        cmd.Parameters.Add(New Odbc.OdbcParameter("GENDER", Odbc.OdbcType.Char, 1)).Value = gender
 
-        Dim cmdImage As Odbc.OdbcCommand = New Odbc.OdbcCommand(sqlImage, c)
-        cmdImage.Parameters.Add(New Odbc.OdbcParameter("id", Odbc.OdbcType.NChar, 12)).Value = id
-        cmdImage.Parameters.Add(New Odbc.OdbcParameter("content", Odbc.OdbcType.VarBinary, 4000)).Value = pictureContent
+        cmd.Parameters.Add(New Odbc.OdbcParameter("RELIGIONCODE", Odbc.OdbcType.Char, 1)).Value = religion
+        cmd.Parameters.Add(New Odbc.OdbcParameter("CITIZENSHIPCODE", Odbc.OdbcType.Char, 1)).Value = citizenship
+        cmd.Parameters.Add(New Odbc.OdbcParameter("RACECODE", Odbc.OdbcType.VarChar, 10)).Value = race
+        cmd.Parameters.Add(New Odbc.OdbcParameter("DOB", Odbc.OdbcType.VarChar, 10)).Value = dob
+
+
         Try
             c.Open()
             cmd.ExecuteNonQuery()
-            cmdImage.ExecuteNonQuery()
         Catch e As Exception
             MsgBox("Duplicate" + e.ToString())
         Finally
             cmd.Dispose()
-            cmdImage.Dispose()
             c.Close()
         End Try
         MsgBox("Done")
@@ -447,6 +1481,37 @@ Public Class Form1
     End Function
 
     Private Sub BindingSource1_CurrentChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    End Sub
+
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+        countExam()
+    End Sub
+    Private Sub countExam()
+        'Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
+        'Dim connectionString As String = "Dsn=mysql-reg-system"
+        Dim connectionString As String = "Dsn=oracle-intake;Uid=INTEGRASI_INTAKE;Pwd=1234;"
+        Dim sql As String = "select count(*) from INTAKE.EXAM"
+        Dim c As Odbc.OdbcConnection = New Odbc.OdbcConnection(connectionString)
+        Dim cmd As Odbc.OdbcCommand = New Odbc.OdbcCommand(sql, c)
+        Try
+            c.Open()
+            Dim r As Odbc.OdbcDataReader = cmd.ExecuteReader()
+            If (r.Read()) Then
+                MsgBox(r.GetString(0))
+            Else
+                MsgBox("Unable to read")
+            End If
+            r.Close()
+        Catch e As Exception
+            MsgBox("Duplicate" + e.ToString())
+        Finally
+            cmd.Dispose()
+            c.Close()
+        End Try
+    End Sub
+
+    Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
     End Sub
 End Class
