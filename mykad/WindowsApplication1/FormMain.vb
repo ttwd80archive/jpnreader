@@ -10,7 +10,7 @@ Public Structure SCARD_IO_REQUEST
 End Structure
 
 
-Public Class Form1
+Public Class FormMain
 
     '''SCARD_SCOPE_TERMINAL -> 1
     Public Const SCARD_SCOPE_TERMINAL As Integer = 1
