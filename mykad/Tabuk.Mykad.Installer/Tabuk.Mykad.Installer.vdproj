@@ -15,20 +15,32 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_103B979DD197415DA0D4F9B1FC235592"
+        "MsmKey" = "8:_959BFD5898CF4E0E88DA62526427C87D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A2200D692D57F76DE7210754049807BC"
-        "OwnerKey" = "8:_103B979DD197415DA0D4F9B1FC235592"
+        "MsmKey" = "8:_B465BF06BB564C1089AADBF71662793E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D66B6398797F085B04FD55FADA16F326"
+        "OwnerKey" = "8:_959BFD5898CF4E0E88DA62526427C87D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_103B979DD197415DA0D4F9B1FC235592"
+        "OwnerKey" = "8:_959BFD5898CF4E0E88DA62526427C87D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B465BF06BB564C1089AADBF71662793E"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -49,6 +61,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -65,6 +85,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -94,7 +122,7 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A2200D692D57F76DE7210754049807BC"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D66B6398797F085B04FD55FADA16F326"
             {
             "SourcePath" = "8:Tabuk.MyKad.tlb"
             "TargetName" = "8:Tabuk.MyKad.tlb"
@@ -689,7 +717,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_103B979DD197415DA0D4F9B1FC235592"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_959BFD5898CF4E0E88DA62526427C87D"
             {
             "SourcePath" = "8:..\\tjpnreader\\obj\\Release\\Tabuk.MyKad.dll"
             "TargetName" = "8:"
@@ -712,6 +740,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B465BF06BB564C1089AADBF71662793E"
+            {
+            "SourcePath" = "8:..\\WindowsApplication1\\obj\\Release\\Tabuk.MyKad.Reader.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_03B15B9F0920426AAF3A9F1C3362A038"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{73C4BFE6-B47B-4B0E-B040-E981C09B2E98}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
