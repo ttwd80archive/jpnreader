@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_11119CFEC59F413CF4817197FED1B019"
-        "OwnerKey" = "8:_57BF7C574BBD4E00945C4267CFC2AC11"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_3B94D92B3A9745A38E1C82FE423FDDB2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -33,8 +27,26 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_5E73720E302A09129BBBA7366ED276A2"
+        "OwnerKey" = "8:_57BF7C574BBD4E00945C4267CFC2AC11"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BB401581ABF9465FB3B600E21B8F7693"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_3B94D92B3A9745A38E1C82FE423FDDB2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BB401581ABF9465FB3B600E21B8F7693"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -83,6 +95,20 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_F722DC2C7C074B36830CEF01398DCAF0"
+            {
+            "Name" = "8:Primary output from Tabuk.MyKad.Reader (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_BB401581ABF9465FB3B600E21B8F7693"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_EA001207_639F_4B62_A132_86AB1A585EDB"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -106,7 +132,7 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_11119CFEC59F413CF4817197FED1B019"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5E73720E302A09129BBBA7366ED276A2"
             {
             "SourcePath" = "8:Tabuk.MyKad.tlb"
             "TargetName" = "8:Tabuk.MyKad.tlb"
@@ -182,23 +208,23 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Tabuk.MyKad.Reader.Installer"
-        "ProductCode" = "8:{D3BE6570-3494-47D1-9A15-5AEC491A3554}"
-        "PackageCode" = "8:{81C9797D-1193-4427-8F83-013F02009FCB}"
+        "ProductCode" = "8:{115836CB-1B19-4EA0-8514-191B154C4510}"
+        "PackageCode" = "8:{EC60663F-8100-4046-9A42-775A50BD9312}"
         "UpgradeCode" = "8:{92724D15-620D-4911-86DC-E3387F5ECB74}"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Default Company Name"
+        "ProductVersion" = "8:1.0.1"
+        "Manufacturer" = "8:Tabuk Technologies"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Tabuk.MyKad.Reader.Installer"
+        "Title" = "8:Tabuk Technologies MyKad Reader"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Default Company Name"
+        "ARPCONTACT" = "8:Tabuk Technologies"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
-        "ARPURLINFOABOUT" = "8:"
+        "ARPURLINFOABOUT" = "8:http://www.tabuk-tech.com.my/"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
@@ -703,7 +729,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3B94D92B3A9745A38E1C82FE423FDDB2"
             {
-            "SourcePath" = "8:..\\WindowsApplication1\\obj\\Debug\\WindowsApplication1.exe"
+            "SourcePath" = "8:..\\WindowsApplication1\\obj\\Release\\WindowsApplication1.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F2E46F30201446FD8523C58FB35C81D8"
@@ -731,7 +757,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_57BF7C574BBD4E00945C4267CFC2AC11"
             {
-            "SourcePath" = "8:..\\tjpnreader\\obj\\Debug\\Tabuk.MyKad.dll"
+            "SourcePath" = "8:..\\tjpnreader\\obj\\Release\\Tabuk.MyKad.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F2E46F30201446FD8523C58FB35C81D8"
@@ -752,6 +778,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{6B9B9CFC-C72E-4559-87C5-0BF7D5D2CB56}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BB401581ABF9465FB3B600E21B8F7693"
+            {
+            "SourcePath" = "8:..\\WindowsApplication1\\obj\\Release\\WindowsApplication1.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8D8D4C4FE1414C2685D9165FAA79B98A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{73C4BFE6-B47B-4B0E-B040-E981C09B2E98}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

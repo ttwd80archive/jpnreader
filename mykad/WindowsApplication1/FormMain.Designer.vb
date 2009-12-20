@@ -24,7 +24,6 @@ Partial Class FormMain
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button
         Me.Button2 = New System.Windows.Forms.Button
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel
         Me.Label1 = New System.Windows.Forms.Label
@@ -43,13 +42,13 @@ Partial Class FormMain
         Me.Label7 = New System.Windows.Forms.Label
         Me.textNationality = New System.Windows.Forms.TextBox
         Me.Label8 = New System.Windows.Forms.Label
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.textboxInfo = New System.Windows.Forms.TextBox
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(555, 12)
+        Me.Button1.Location = New System.Drawing.Point(399, 6)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(148, 36)
         Me.Button1.TabIndex = 0
@@ -58,27 +57,19 @@ Partial Class FormMain
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(555, 54)
+        Me.Button2.Location = New System.Drawing.Point(399, 48)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(147, 38)
         Me.Button2.TabIndex = 2
         Me.Button2.Text = "Clear"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Location = New System.Drawing.Point(399, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(150, 200)
-        Me.PictureBox1.TabIndex = 3
-        Me.PictureBox1.TabStop = False
-        '
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 251)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(707, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(553, 22)
         Me.StatusStrip1.TabIndex = 5
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -216,11 +207,23 @@ Partial Class FormMain
         Me.Label8.TabIndex = 20
         Me.Label8.Text = "Nationality:"
         '
-        'Form1
+        'textboxInfo
+        '
+        Me.textboxInfo.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.textboxInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textboxInfo.ForeColor = System.Drawing.Color.Red
+        Me.textboxInfo.Location = New System.Drawing.Point(399, 128)
+        Me.textboxInfo.Multiline = True
+        Me.textboxInfo.Name = "textboxInfo"
+        Me.textboxInfo.Size = New System.Drawing.Size(147, 110)
+        Me.textboxInfo.TabIndex = 22
+        '
+        'FormMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(707, 273)
+        Me.ClientSize = New System.Drawing.Size(553, 273)
+        Me.Controls.Add(Me.textboxInfo)
         Me.Controls.Add(Me.textNationality)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.textAddress)
@@ -238,12 +241,10 @@ Partial Class FormMain
         Me.Controls.Add(Me.textId)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
-        Me.Name = "Form1"
+        Me.Name = "FormMain"
         Me.Text = "MyKad Reader"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -252,7 +253,6 @@ Partial Class FormMain
     End Sub
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -271,5 +271,6 @@ Partial Class FormMain
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents textNationality As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents textboxInfo As System.Windows.Forms.TextBox
 
 End Class

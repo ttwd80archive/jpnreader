@@ -75,9 +75,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.WindowsApplication1.My.MySettings
+        Friend ReadOnly Property Settings() As Global.Tabuk.MyKad.Reader.My.MySettings
             Get
-                Return Global.WindowsApplication1.My.MySettings.Default
+                Return Global.Tabuk.MyKad.Reader.My.MySettings.Default
             End Get
         End Property
     End Module

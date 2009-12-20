@@ -106,7 +106,7 @@ Public Class FormMain
         textGender.Text = ""
         textAddress.Text = ""
         textNationality.Text = ""
-        PictureBox1.Image = Nothing
+        'PictureBox1.Image = Nothing
         Me.Refresh()
     End Sub
 
@@ -1314,7 +1314,7 @@ Public Class FormMain
             cmd.Dispose()
             c.Close()
         End Try
-        MsgBox("Done")
+        MsgBox("Your information has been successfully saved.", MsgBoxStyle.Information, "Information")
     End Sub
     Private Function bcdNumberToString(ByVal bcd As Byte()) As String
         Dim result As String = ""
@@ -1332,7 +1332,7 @@ Public Class FormMain
     Private Function loadImage()
         Dim pictureContent() As Byte = readFile2()
         Dim icPicture As Image = Drawing.Image.FromStream(New IO.MemoryStream(pictureContent))
-        PictureBox1.Image = icPicture
+        'PictureBox1.Image = icPicture
         Return pictureContent
     End Function
     Public Function readSegment(ByVal fileNumber As Integer, ByVal offset As Integer, ByVal length As Integer) As Byte()
@@ -1513,6 +1513,33 @@ Public Class FormMain
     End Sub
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
+        checkOkSimpleConnection()
     End Sub
+    Private Sub checkOkSimpleConnection()
+        Dim connectionString As String = "Dsn=oracle-intake;Uid=INTEGRASI_INTAKE;Pwd=1234;"
+        Dim sql As String = "select SYSDATE from DUAL"
+        Dim c As Odbc.OdbcConnection = New Odbc.OdbcConnection(connectionString)
+        Dim cmd As Odbc.OdbcCommand = New Odbc.OdbcCommand(sql, c)
+        Dim message As String = ""
+        Try
+            c.Open()
+            Dim r As Odbc.OdbcDataReader = cmd.ExecuteReader()
+            If (r.Read()) Then
+                r.GetString(0)
+                textboxInfo.ForeColor = Color.Green
+                textboxInfo.Text = "Connection to database: OK"
+                Return
+            End If
+            r.Close()
+        Catch e As Exception
+            message = e.Message
+        Finally
+            cmd.Dispose()
+            c.Close()
+        End Try
+        textboxInfo.ForeColor = Color.Red
+        textboxInfo.Text = message
+    End Sub
+
+
 End Class
