@@ -43,7 +43,6 @@ Partial Class Form1
         Me.Label7 = New System.Windows.Forms.Label
         Me.textNationality = New System.Windows.Forms.TextBox
         Me.Label8 = New System.Windows.Forms.Label
-        Me.Button3 = New System.Windows.Forms.Button
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -217,21 +216,11 @@ Partial Class Form1
         Me.Label8.TabIndex = 20
         Me.Label8.Text = "Nationality:"
         '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(555, 95)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 23)
-        Me.Button3.TabIndex = 22
-        Me.Button3.Text = "Button3"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(707, 273)
-        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.textNationality)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.textAddress)
@@ -282,6 +271,5 @@ Partial Class Form1
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents textNationality As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents Button3 As System.Windows.Forms.Button
 
 End Class

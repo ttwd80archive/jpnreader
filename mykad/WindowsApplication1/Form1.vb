@@ -127,6 +127,12 @@ Public Class Form1
         Return r.Substring(0, 1)
     End Function
     Private Function decodeRace(ByVal r As String) As String
+        If r = "MELAYU" Then
+            Return "0100"
+        End If
+        If r = "IBAN/SEA DAYAK" Then
+            Return "1004"
+        End If
         If r = "LAIN - LAIN" Then
             Return "0000"
         End If
@@ -210,9 +216,6 @@ Public Class Form1
         End If
         If r = "MELANAU" Then
             Return "18"
-        End If
-        If r = "MELAYU" Then
-            Return "0100"
         End If
         If r = "MURUT" Then
             Return "20"
@@ -312,9 +315,6 @@ Public Class Form1
         End If
         If r = "DUMPAS" Then
             Return "0905"
-        End If
-        If r = "IBAN/SEA DAYAK" Then
-            Return "1004"
         End If
         If r = "IDAHAN" Then
             Return "0907"
@@ -1286,20 +1286,21 @@ Public Class Form1
     Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal gender As String, ByVal dob As String, ByRef icOld As String)
         'Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
         'Dim connectionString As String = "Dsn=mysql-reg-system"
-        Dim connectionString As String = "Dsn=INTEGRASI_INTAKE;Uid=MYKAD;Pwd=janganhilang"
+        'Dim connectionString As String = "Dsn=INTEGRASI_INTAKE;Uid=MYKAD;Pwd=janganhilang"
+        Dim connectionString As String = "Dsn=oracle-intake;Uid=INTEGRASI_INTAKE;Pwd=1234;"
 
-        Dim sql As String = "insert into INTEGRASI_MYKAD (ICNEW, ICOLD, FULLNAME, GENDER, RELIGIONCODE, CITIZENSHIPCODE, RACECODE, DOB) values (?, ?, ?, ?, ?, ?, ?, ?)"
+
+        Dim sql As String = "insert into INTAKE.INTEGRATION_MYCARD (INM_NEWICNUM, INM_OLDICNUM, INM_FULLNAME, INM_GENDER, INM_RELIGIONCODE, INM_CITIZENSHIPCODE, INM_RACECODE, INM_DOB) values (?, ?, ?, ?, ?, ?, ?, ?)"
         Dim c As Odbc.OdbcConnection = New Odbc.OdbcConnection(connectionString)
 
         Dim cmd As Odbc.OdbcCommand = New Odbc.OdbcCommand(sql, c)
 
-        cmd.Parameters.Add(New Odbc.OdbcParameter("ICNEW", Odbc.OdbcType.VarChar, 13)).Value = id
-        cmd.Parameters.Add(New Odbc.OdbcParameter("ICOLD", Odbc.OdbcType.VarChar, 8)).Value = icOld
-        cmd.Parameters.Add(New Odbc.OdbcParameter("FULLNAME", Odbc.OdbcType.VarChar, 150)).Value = name
-        cmd.Parameters.Add(New Odbc.OdbcParameter("GENDER", Odbc.OdbcType.Char, 1)).Value = gender
-
-        cmd.Parameters.Add(New Odbc.OdbcParameter("RELIGIONCODE", Odbc.OdbcType.Char, 1)).Value = religion
-        cmd.Parameters.Add(New Odbc.OdbcParameter("CITIZENSHIPCODE", Odbc.OdbcType.Char, 1)).Value = citizenship
+        cmd.Parameters.Add(New Odbc.OdbcParameter("ICNEW", Odbc.OdbcType.VarChar, 12)).Value = id
+        cmd.Parameters.Add(New Odbc.OdbcParameter("ICOLD", Odbc.OdbcType.VarChar, 12)).Value = icOld
+        cmd.Parameters.Add(New Odbc.OdbcParameter("FULLNAME", Odbc.OdbcType.VarChar, 80)).Value = name
+        cmd.Parameters.Add(New Odbc.OdbcParameter("GENDER", Odbc.OdbcType.VarChar, 10)).Value = gender
+        cmd.Parameters.Add(New Odbc.OdbcParameter("RELIGIONCODE", Odbc.OdbcType.VarChar, 10)).Value = religion
+        cmd.Parameters.Add(New Odbc.OdbcParameter("CITIZENSHIPCODE", Odbc.OdbcType.VarChar, 10)).Value = citizenship
         cmd.Parameters.Add(New Odbc.OdbcParameter("RACECODE", Odbc.OdbcType.VarChar, 10)).Value = race
         cmd.Parameters.Add(New Odbc.OdbcParameter("DOB", Odbc.OdbcType.VarChar, 10)).Value = dob
 
@@ -1484,7 +1485,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         countExam()
     End Sub
     Private Sub countExam()
