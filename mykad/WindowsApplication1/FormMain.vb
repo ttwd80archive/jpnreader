@@ -1370,20 +1370,20 @@ Public Class FormMain
         'Return
         'End If
 
-        insertIntoDb(id, fullName, originalName, decodeCitizenship(citizenship), decodeRace(race), decodeReligion(religion), gender, birthdate, icOld, birthplace, address1, address2, address3, postcode)
+        insertIntoDb(id, fullName, originalName, decodeCitizenship(citizenship), decodeRace(race), decodeReligion(religion), gender, birthdate, icOld, birthplace, address1, address2, address3, postcode, city)
 
     End Sub
     Private Sub cleanUp()
         SCardReleaseContext(hContext)
     End Sub
-    Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal originalName As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal gender As String, ByVal dob As String, ByRef icOld As String, ByVal placeOfBirth As String, ByVal a1 As String, ByVal a2 As String, ByVal a3 As String, ByVal postcode As String)
+    Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal originalName As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal gender As String, ByVal dob As String, ByRef icOld As String, ByVal placeOfBirth As String, ByVal a1 As String, ByVal a2 As String, ByVal a3 As String, ByVal postcode As String, ByVal city As String)
         'Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
         'Dim connectionString As String = "Dsn=mysql-reg-system"
         'Dim connectionString As String = "Dsn=INTEGRASI_INTAKE;Uid=MYKAD;Pwd=janganhilang"
         Dim connectionString As String = "Dsn=oracle-intake;Uid=INTEGRASI_INTAKE;Pwd=1234;"
 
 
-        Dim sql As String = "insert into INTAKE.INTEGRATION_MYCARD (INM_NEWICNUM, INM_OLDICNUM, INM_ORIGINALFULLNAME, INM_FULLNAME, INM_GENDER, INM_RELIGIONCODE, INM_CITIZENSHIPCODE, INM_RACECODE, INM_DOB, INM_PLACEOFBIRTH, INM_ADDRESS1, INM_ADDRESS2, INM_ADDRESS3, INM_POSTCODE) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        Dim sql As String = "insert into INTAKE.INTEGRATION_MYCARD (INM_NEWICNUM, INM_OLDICNUM, INM_ORIGINALFULLNAME, INM_FULLNAME, INM_GENDER, INM_RELIGIONCODE, INM_CITIZENSHIPCODE, INM_RACECODE, INM_DOB, INM_PLACEOFBIRTH, INM_ADDRESS1, INM_ADDRESS2, INM_ADDRESS3, INM_POSTCODE, INM_CITY) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         Dim c As Odbc.OdbcConnection = New Odbc.OdbcConnection(connectionString)
 
         Dim cmd As Odbc.OdbcCommand = New Odbc.OdbcCommand(sql, c)
@@ -1402,6 +1402,7 @@ Public Class FormMain
         cmd.Parameters.Add(New Odbc.OdbcParameter("ADDRESS2", Odbc.OdbcType.VarChar, 40)).Value = a2
         cmd.Parameters.Add(New Odbc.OdbcParameter("ADDRESS3", Odbc.OdbcType.VarChar, 40)).Value = a3
         cmd.Parameters.Add(New Odbc.OdbcParameter("POSTCODE", Odbc.OdbcType.VarChar, 5)).Value = postcode
+        cmd.Parameters.Add(New Odbc.OdbcParameter("CITY", Odbc.OdbcType.VarChar, 30)).Value = city
 
         Try
             c.Open()
