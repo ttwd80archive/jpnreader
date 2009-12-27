@@ -1153,6 +1153,97 @@ Public Class FormMain
         Return ""
     End Function
 
+    Public Function toStateCode(ByVal code As String) As String
+        Dim map As Hashtable = New Hashtable()
+        map.Add("01", "01")
+        map.Add("21", "01")
+        map.Add("22", "01")
+        map.Add("23", "01")
+        map.Add("24", "01")
+
+        map.Add("02", "02")
+        map.Add("25", "02")
+        map.Add("26", "02")
+        map.Add("27", "02")
+
+        map.Add("03", "03")
+        map.Add("28", "03")
+        map.Add("29", "03")
+
+        map.Add("04", "04")
+        map.Add("30", "04")
+
+        map.Add("05", "05")
+        map.Add("31", "05")
+        map.Add("59", "05")
+
+        map.Add("06", "06")
+        map.Add("32", "06")
+        map.Add("33", "06")
+
+        map.Add("07", "07")
+        map.Add("34", "07")
+        map.Add("35", "07")
+
+        map.Add("08", "08")
+        map.Add("36", "08")
+        map.Add("37", "08")
+        map.Add("38", "08")
+        map.Add("39", "08")
+
+        map.Add("09", "09")
+        map.Add("40", "09")
+
+        map.Add("10", "10")
+        map.Add("41", "10")
+        map.Add("42", "10")
+        map.Add("43", "10")
+        map.Add("44", "10")
+
+        map.Add("11", "11")
+        map.Add("45", "11")
+        map.Add("46", "11")
+
+        map.Add("12", "12")
+        map.Add("47", "12")
+        map.Add("48", "12")
+        map.Add("49", "12")
+
+        map.Add("13", "13")
+        map.Add("50", "13")
+        map.Add("51", "13")
+        map.Add("52", "13")
+        map.Add("53", "13")
+
+        map.Add("14", "14")
+        map.Add("54", "14")
+        map.Add("55", "14")
+        map.Add("56", "14")
+        map.Add("57", "14")
+
+        map.Add("15", "15")
+        map.Add("58", "15")
+
+        map.Add("16", "16")
+
+        map.Add("60", "17")
+
+        map.Add("67", "18")
+        'missing 19, because 19 is the last option
+        map.Add("66", "20")
+        map.Add("61", "21")
+        Dim stateCode As String = map(code)
+        '19 = lain lain
+        If (stateCode = Nothing) Then
+            Return "19"
+        Else
+            Return stateCode
+        End If
+    End Function
+
+
+
+
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Button2_Click(sender, e)
         Dim result As Integer
