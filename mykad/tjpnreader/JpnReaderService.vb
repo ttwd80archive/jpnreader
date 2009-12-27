@@ -21,10 +21,12 @@
         End If
         szOriginalName = Text.Encoding.ASCII.GetString(file1Content, &H3, &H96).Trim()
         szFullName = Text.Encoding.ASCII.GetString(file1Content, &HE9, &H28).Trim()
+        szPlaceOfBirth = Text.Encoding.ASCII.GetString(file1Content, &H12B, &H19).Trim()
         szIcno = Text.Encoding.ASCII.GetString(file1Content, &H111, &HD).Trim()
         szGender = Text.Encoding.ASCII.GetString(file1Content, &H11E, 1).Trim()
         szOldId = Text.Encoding.ASCII.GetString(file1Content, &H11F, &H8).Trim()
         szBirthdate = toDateString(file1Content, &H127)
+
         szBirthplace = Text.Encoding.ASCII.GetString(file1Content, &H12B, &H19).Trim()
         szDateIssued = toDateString(file1Content, &H144)
         szCitizenship = Text.Encoding.ASCII.GetString(file1Content, &H148, &H12).Trim()
@@ -64,6 +66,13 @@
     Public ReadOnly Property fullName() As String
         Get
             Return szFullName
+        End Get
+    End Property
+
+    Private szPlaceOfBirth As String
+    Public ReadOnly Property placeOfBirth() As String
+        Get
+            Return szPlaceOfBirth
         End Get
     End Property
 
