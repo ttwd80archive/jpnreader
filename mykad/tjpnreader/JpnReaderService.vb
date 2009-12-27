@@ -20,6 +20,7 @@
             Return False
         End If
         szOriginalName = Text.Encoding.ASCII.GetString(file1Content, &H3, &H96).Trim()
+        szFullName = Text.Encoding.ASCII.GetString(file1Content, &HE9, &H28).Trim()
         szIcno = Text.Encoding.ASCII.GetString(file1Content, &H111, &HD).Trim()
         szGender = Text.Encoding.ASCII.GetString(file1Content, &H11E, 1).Trim()
         szOldId = Text.Encoding.ASCII.GetString(file1Content, &H11F, &H8).Trim()
@@ -58,6 +59,14 @@
             Return szOriginalName
         End Get
     End Property
+
+    Private szFullName As String
+    Public ReadOnly Property fullName() As String
+        Get
+            Return szFullName
+        End Get
+    End Property
+
 
     Private szIcno As String
     Public ReadOnly Property icno() As String
