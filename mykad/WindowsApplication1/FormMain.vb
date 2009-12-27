@@ -1327,6 +1327,7 @@ Public Class FormMain
         Dim citizenship As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H148, &H12).Trim()
         Dim race As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H15A, &H19).Trim().ToUpper
         Dim religion As String = System.Text.Encoding.ASCII.GetString(fileContent1, &H173, &HB).Trim().ToUpper
+
         textId.Text = id
         textName.Text = name
         textReligion.Text = religion
@@ -1369,20 +1370,20 @@ Public Class FormMain
         'Return
         'End If
 
-        insertIntoDb(id, fullName, originalName, decodeCitizenship(citizenship), decodeRace(race), decodeReligion(religion), gender, birthdate, icOld)
+        insertIntoDb(id, fullName, originalName, decodeCitizenship(citizenship), decodeRace(race), decodeReligion(religion), gender, birthdate, icOld, birthplace)
 
     End Sub
     Private Sub cleanUp()
         SCardReleaseContext(hContext)
     End Sub
-    Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal originalName As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal gender As String, ByVal dob As String, ByRef icOld As String)
+    Private Sub insertIntoDb(ByVal id As String, ByVal name As String, ByVal originalName As String, ByVal citizenship As String, ByVal race As String, ByVal religion As String, ByVal gender As String, ByVal dob As String, ByRef icOld As String, ByVal placeOfBirth As String)
         'Dim connectionString As String = "Dsn=PostgreSQL35W;database=reg;server=localhost;port=5432;uid=uitm;sslmode=disable;readonly=0;protocol=7.4;fakeoidindex=0;showoidcolumn=0;rowversioning=0;showsystemtables=0;fetch=100;socket=4096;unknownsizes=0;maxvarcharsize=255;maxlongvarcharsize=8190;debug=0;commlog=0;optimizer=0;ksqo=1;usedeclarefetch=0;textaslongvarchar=1;unknownsaslongvarchar=0;boolsaschar=1;parse=0;cancelasfreestmt=0;extrasystableprefixes=dd_;lfconversion=1;updatablecursors=1;disallowpremature=0;trueisminus1=0;bi=0;byteaaslongvarbinary=0;useserversideprepare=0;lowercaseidentifier=0;xaopt=1"
         'Dim connectionString As String = "Dsn=mysql-reg-system"
         'Dim connectionString As String = "Dsn=INTEGRASI_INTAKE;Uid=MYKAD;Pwd=janganhilang"
         Dim connectionString As String = "Dsn=oracle-intake;Uid=INTEGRASI_INTAKE;Pwd=1234;"
 
 
-        Dim sql As String = "insert into INTAKE.INTEGRATION_MYCARD (INM_NEWICNUM, INM_OLDICNUM, INM_ORIGINALFULLNAME, INM_FULLNAME, INM_GENDER, INM_RELIGIONCODE, INM_CITIZENSHIPCODE, INM_RACECODE, INM_DOB) values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        Dim sql As String = "insert into INTAKE.INTEGRATION_MYCARD (INM_NEWICNUM, INM_OLDICNUM, INM_ORIGINALFULLNAME, INM_FULLNAME, INM_GENDER, INM_RELIGIONCODE, INM_CITIZENSHIPCODE, INM_RACECODE, INM_DOB, INM_PLACEOFBIRTH) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         Dim c As Odbc.OdbcConnection = New Odbc.OdbcConnection(connectionString)
 
         Dim cmd As Odbc.OdbcCommand = New Odbc.OdbcCommand(sql, c)
@@ -1391,12 +1392,12 @@ Public Class FormMain
         cmd.Parameters.Add(New Odbc.OdbcParameter("ICOLD", Odbc.OdbcType.VarChar, 12)).Value = icOld
         cmd.Parameters.Add(New Odbc.OdbcParameter("ORIGINALFULLNAME", Odbc.OdbcType.VarChar, 80)).Value = originalName
         cmd.Parameters.Add(New Odbc.OdbcParameter("FULLNAME", Odbc.OdbcType.VarChar, 80)).Value = name
-
         cmd.Parameters.Add(New Odbc.OdbcParameter("GENDER", Odbc.OdbcType.VarChar, 10)).Value = gender
         cmd.Parameters.Add(New Odbc.OdbcParameter("RELIGIONCODE", Odbc.OdbcType.VarChar, 10)).Value = religion
         cmd.Parameters.Add(New Odbc.OdbcParameter("CITIZENSHIPCODE", Odbc.OdbcType.VarChar, 10)).Value = citizenship
         cmd.Parameters.Add(New Odbc.OdbcParameter("RACECODE", Odbc.OdbcType.VarChar, 10)).Value = race
         cmd.Parameters.Add(New Odbc.OdbcParameter("DOB", Odbc.OdbcType.VarChar, 10)).Value = dob
+        cmd.Parameters.Add(New Odbc.OdbcParameter("PLACEOFBIRTH", Odbc.OdbcType.VarChar, 25)).Value = placeOfBirth
 
 
         Try
