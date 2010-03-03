@@ -134,7 +134,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_95EA07EC211E4E26BEE148F518F13FF5"
             {
-            "SourcePath" = "8:D:\\springsource\\tc-server-6.0.20.C\\webapps\\insight\\images\\favicon.ico"
+            "SourcePath" = "8:D:\\workspace\\favicon.ico"
             "TargetName" = "8:favicon.ico"
             "Tag" = "8:"
             "Folder" = "8:_F2E46F30201446FD8523C58FB35C81D8"
