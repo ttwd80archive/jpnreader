@@ -104,7 +104,7 @@
         If result <> 0 Then
             Return result
         End If
-        Dim sb As Text.StringBuilder = New Text.StringBuilder()
+        Dim sb As Text.StringBuilder = New Text.StringBuilder(100, 200)
         Dim cchReaders As UInteger = 256
         result = SCardListReadersW(hContext, Nothing, sb, cchReaders)
         If result <> 0 Then

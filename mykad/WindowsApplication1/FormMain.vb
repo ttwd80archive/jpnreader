@@ -1264,7 +1264,7 @@ Public Class FormMain
         Dim stopwatch As Stopwatch = New Stopwatch()
         stopwatch.Start()
 
-        sb = New System.Text.StringBuilder()
+        sb = New System.Text.StringBuilder(100, 200)
         result = SCardEstablishContext(SCARD_SCOPE_USER, IntPtr.Zero, IntPtr.Zero, hContext)
         If (result <> 0) Then
             MsgBox("Error: SCardEstablishContext")
